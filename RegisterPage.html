@@ -8,24 +8,29 @@
 </head>
 <body>
     <div class="register">
-        <div class="Account">
-            <h4>Create Account</h4>
-        </div>
         <div class="register_form">
-            <form action="register" method="post">
-                <input type="text" name="First Name" value="First Name" required>
-                <input type="text" name="Last Name" value="Last Name" required>
-                <input type="email" name="Email" value="Email" required>
-                <input type="password" name="Password" value="Password" required>
-                <input type="password" name="Password" value="Confirm Password" required>
-
-                <input type="button" name="Sign Up" value="Sign Up">
+            <h2>Sign Up</h2>
+            <form action="#" method="post">
+                <div class="input-box">
+                    <img src="user.png" class="icons" alt="Username">
+                    <input type="text"  placeholder="First Name" required>
+                </div>
+                <div class="input-box">
+                    <img src="email.png" class="icons" alt="Email">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <img src="pass.png" class="icons" alt="password">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="input-box">
+                    <img src="pass.png" class="icons" alt="password">
+                    <input type="password" placeholder="Confirm password" required>
+                </div>
+                <button type="submit" class="button">Sign Up</button>
+                <p> Already have an account?  <a href="Log In"> Login </a> </p>
             </form>
-            <p> Already have an account? </p>
-            <a href="Log In"> Log In </a>
         </div>
     </div>
-
-
 </body>
 </html>
