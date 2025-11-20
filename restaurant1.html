@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="sq">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DineUp</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Cinzel:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="restaurant1.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <a class="back" href="#">Back to main page</a>
+    </header>
+
+    <!-- foto background-->
+    <main class="hero">
+      <div class="overlay"></div>
+
+      <div class="hero-content">
+        <h1>
+          MANUKA<br />
+          RESTAURANT
+        </h1>
+
+        <a class="cta" href="#">FIND OUT MORE</a>
+      </div>
+    </main>
+
+    <!-- WE OFFER TOP NOTCH -->
+    <section class="menu-section">
+      <div class="section-tag">Flavors for Royalty</div>
+      <h2 class="gold-title">We Offer Top Notch</h2>
+
+      <p class="menu-subtitle">
+        Eksperienca jonë kulinare kombinon artin e gatimit me elegance moderne.
+        Çdo pjatë përgatitet me përkushtim, kreativitet dhe përbërës të zgjedhur
+        me kujdes.
+      </p>
+
+      <div class="menu-container">
+        <div class="menu-card">
+          <div class="menu-frame"></div>
+          <img src="petullatTradicionale.jpg" alt="Breakfast" />
+          <h3>Breakfast</h3>
+          <a href="#" class="menu-link">View Menu</a>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-frame"></div>
+          <img src="paragjella.jpg" alt="Appetizers" />
+          <h3>Appetizers</h3>
+          <a href="#" class="menu-link">View Menu</a>
+        </div>
+
+        <div class="menu-card">
+          <div class="menu-frame"></div>
+          <img src="pijet.jpg" alt="Drinks" />
+          <h3>Drinks</h3>
+          <a href="#" class="menu-link">View Menu</a>
+        </div>
+      </div>
+    </section>
+    <!--  CONTACT US -->
+    <section class="contact-section">
+      <div class="section-tag">Get in Touch</div>
+      <h2>Contact Us</h2>
+      <p>
+        Na kontaktoni për rezervime, pyetje ose sugjerime. Ne jemi gjithmonë të
+        gatshëm t'ju ndihmojmë.
+      </p>
+
+      <div class="contact-container">
+        <div class="contact-card">
+          <h3>Address</h3>
+          <p>
+            Rr. Ramadan Rexhepi, Ferizaj <br />
+            06:00 - 00:00
+          </p>
+        </div>
+        <div class="contact-card">
+          <h3>Phone</h3>
+          <p>+383 49 500 327</p>
+        </div>
+        <div class="contact-card">
+          <h3>Email</h3>
+          <p>manukarestaurant2023@gmail.com</p>
+        </div>
+        <div class="contact-card">
+          <h3>Follow Us</h3>
+          <p>
+            <a href="https://www.facebook.com/manukarestaurant">Facebook</a> |
+            <a
+              href="https://www.instagram.com/manukarestaurant/?fbclid=IwY2xjawOMgwpleHRuA2FlbQIxMABicmlkETFmNTk3N2FoTU1JM2hiR1p6c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHiVQ3yMTzRbfzmLz4cE5KbqSEFP-lNrHep8EXvnomy9hLEIi0zkLGFekxFRi_aem_4ttkEufk249kMlkY09xgkw#"
+              >Instagram</a
+            >
+            |
+            <a href="https://www.tiktok.com/@manukarestaurant">TikTok</a>
+          </p>
+        </div>
+      </div>
+      <div class="reservation-form">
+        <h3>Rezervo Tavolinën Tënde</h3>
+        <form action="#" method="POST">
+          <label for="name">Emri juaj</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Shkruani emrin"
+            required
+          />
+
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Shkruani email"
+            required
+          />
+
+          <label for="date">Data</label>
+          <input type="date" id="date" name="date" required />
+
+          <label for="time">Ora</label>
+          <input type="time" id="time" name="time" required />
+
+          <label for="guests">Numri i personave</label>
+          <input
+            type="number"
+            id="guests"
+            name="guests"
+            min="1"
+            max="20"
+            required
+          />
+
+          <label for="message">Mesazh / Shënim</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Opsionale"
+          ></textarea>
+
+          <button type="submit">Rezervo Tani</button>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
