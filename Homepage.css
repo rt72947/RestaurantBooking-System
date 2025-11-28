@@ -1,38 +1,48 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #faf7f2;
+    background-color: #0e0e0e;
     color: #222;
 }
 
-
 .header {
-    background-color: #fff;
-    padding: 15px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    background: black;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 40px;
 }
 
-.nav-left a {
+.navigation a {
+    color: white;
     text-decoration: none;
-    color: #333;
     margin-right: 20px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.navigation a:hover {
+    opacity: 0.7;
 }
 
 .button {
-    padding: 10px 25px;
-    background-color: #ff4c4c;
+    background: white;
+    color: black;
     border: none;
-    color: white;
-    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 6px;
+    font-weight: 600;
+}
+
+.button:hover {
+    background: #ddd;
 }
 
 .main_background {
@@ -48,6 +58,9 @@ body {
     display: block;
 }
 
+.main_background h3{
+    color: #c9a86a;
+}
 .main_text {
     position: absolute;
     bottom: 30px;
@@ -88,11 +101,12 @@ body {
 }
 
 .restaurant_listing .restuarant {
-    background-color: #fff;
+    background-color: #1f1f1f;
     padding: 15px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    color: white;
 }
 
 .restuarant img {
@@ -102,9 +116,19 @@ body {
     margin-bottom: 10px;
 }
 
+.restuarant img {
+    transition: 0.3s ease;
+}
 
+.restuarant img:hover {
+    transform: scale(1.05);
+}
+
+.restuarant h3{
+    color: #c9a86a;
+}
 .footer {
-    background-color: #333;
+    background-color: #1f1f1f;
     color:  #fff;
     display: flex;
     justify-content: space-between;
@@ -112,7 +136,6 @@ body {
     flex-wrap: wrap;
     gap: 20px;
 }
-
 
 .footer-left {
     width: 45%;
@@ -123,6 +146,15 @@ body {
     width: 45%;
 }
 
+.footer h2{
+    color: #c9a86a;
+}
+
+.footer p{
+    max-width: 450px;
+    line-height: 1.5; 
+    word-wrap: break-word;
+}
 
 .contact-row {
     display: flex;
@@ -137,10 +169,13 @@ body {
 }
 
 .footer a {
-    color: #ff4c4c;
+    color: white;
     text-decoration: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 @media (max-width: 900px) {
     .restaurant_listing {

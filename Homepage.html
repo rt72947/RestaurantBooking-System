@@ -6,15 +6,15 @@
     <title>DineSpot</title>
     <link rel="stylesheet" href="Homepage.css" />
 </head>
-<body>
+<body id="home">
     <header class="header">
         <nav class="navigation">
             <div class="nav-left">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+                <a href="#home"><b>Home</b></a>
+                <a href="#about"><b>About</b></a>
+                <a href="#contact"><b>Contact</b></a>
             </div>
-            <button class="button">Book now</button>
+            <a href="RegisterPage.html"><button class="button">Sign Up</button> </a>
         </nav>
     </header>
 
@@ -24,50 +24,61 @@
                 <img src="background1.vga" alt="background photo" />
                 <div class="main_text">
                     <h3>Dine Spot</h3>
-                    <p class="tagline">Zbuloni shijen, ndjeni atmosferën, krijoni momentet e veçanta.</p>
+                    <p class="tagline"><i>Zbuloni shijen, ndjeni atmosferën, krijoni momentet e veçanta.</i></p>
                 </div>
             </div>
 
             <div class="restaurant_listing">
                 <div class="restuarant">
                     <a href="#"><img src="ujervara.webp" alt="Ujevara" /></a>
-                    <p>Restorant Ujëvara - Ushqim i shijshëm, ambient komod.</p>
+                    <h3>RESTAURANT UJEVARA</h3>
+                    <p><i>- Ushqim i shijshëm, ambient komod.</i></p>
                 </div>
 
                 <div class="restuarant">
                     <a href="#"><img src="cantina.vga" alt="Cantina de Juan" /></a>
-                    <p>Cantina de Juan - Shije autentike, atmosferë e ngrohtë.</p>
+                    <h3>CANTINA DE JUAN</h3>
+                    <p><i>- Shije autentike, atmosferë e ngrohtë.</i></p>
                 </div>
 
                 <div class="restuarant">
                     <a href="#"><img src="ilgusto.vga" alt="Il Gusto" /></a>
-                    <p>Il Gusto - Eksperiencë italiane, ambient rehatues.</p>
+                    <h3>IL GUSTO</h3>
+                    <p><i>- Eksperiencë italiane, ambient rehatues.</i></p>
                 </div>
 
                 <div class="restuarant">
                     <a href="#"><img src="thehills.vga" alt="The Hills" /></a>
-                    <p>The Hills - Darka romantike dhe surpriza të veçanta.</p>
+                    <h3>THE HILLS RESTAURANT</h3>
+                    <p><i>- Darka romantike dhe surpriza të veçanta.</i></p>
                 </div>
 
                 <div class="restuarant">
-                    <a href="#"><img src="manuka.vga" alt="Manuka" /></a>
-                    <p>MANUKA - Darka perfekte për dy.</p>
+                    <a href="restaurant1.html"><img src="manuka.vga" alt="Manuka" /></a>
+                    <h3>MANUKA</h3>
+                    <p><i>- Darka perfekte për dy.</i></p>
+                </div>
+
+                <div class="restuarant">
+                    <a href="#"><img src="berisha.jpg" alt="Berisha" /></a>
+                    <h3>BERISHA RESTAURANT</h3>
+                    <p><i>- Shije, elegancë dhe mikpritje.</i></p>
                 </div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
-        <div class="footer-left">
-            <h3>About us</h3>
+        <div class="footer-left" id="about">
+            <h2>About us</h2>
             <p>Dine Spot sjell restorantet më të mira të Ferizajt në një vend.
                 Zbuloni shije të shkëlqyera dhe momente të veçanta çdo ditë.</p>
             </div>
         </div>
 
         <div class="footer-right">
-            <h3>Contact us</h3>
-            <div class="contact-row">
+            <h2>Contact us</h2>
+            <div class="contact-row" id="contact">
                 <img src="instagram.vga" class="insta-icon" alt="Instagram icon" />
                 <ul>
                     <li><a href="https://www.instagram.com/ujevararesort/">Ujevara Restaurant</a></li>

@@ -3,9 +3,9 @@ body{
     margin: 0;
     color: rgb(245, 238, 226);
     background-image: url('background1.vga');
+    backdrop-filter: blur(2px);
     background-size: cover;
-    background-position: center'  
-    background-repeat: no-repeat;
+    background-position: center;
     background-attachment: fixed;  
     min-height: 100vh; 
     display: flex;
@@ -37,7 +37,7 @@ body{
 
 .register_form h2{
     font-size: 32px;s
-    font-family:  "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
     text-align: center;
 }
 
@@ -91,5 +91,51 @@ body{
 .register_form p a{
     text-decoration: none;
     font-weight: 600;
-    color: #ff4c4c;
+    color: #c9a86a;
+}
+
+@media (max-width: 768px){
+    .register{
+        width: 90%;
+        padding: 30px 20px;
+    }
+    .register_form h2{
+        font-size: 28px;
+    }
+    .input-box{
+        height: 45px;
+    }
+    .input-box input{
+        font-size: 15px;
+    }
+    .button{
+        font-size: 18px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px){
+    body{
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 50px;
+    }
+    .register{
+        width: 100%;
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+    .register_form h2{
+        font-size: 24px;
+    }
+    .input-box{
+        height: 40px;
+    }
+    .input-box input{
+        font-size: 14px;
+    }
+    .button{
+        font-size: 16px;
+        height: 38px;
+    }
 }
