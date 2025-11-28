@@ -1,7 +1,7 @@
 
 body{
     margin: 0;
-    color: rgb(245, 238, 226);
+    color: white;
     background-image: url('background1.vga');
     backdrop-filter: blur(2px);
     background-size: cover;
@@ -11,6 +11,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Poppins", sans-serif;
 }
 
 
@@ -19,13 +20,12 @@ body{
     width: 450px;
     padding: 40px 0;
     background: transparent;
-    border: 2px solid black;
+    border: none;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
-    
 }
 
 .register_form{
@@ -36,8 +36,7 @@ body{
 }
 
 .register_form h2{
-    font-size: 32px;s
-    font-family: "Poppins", sans-serif;
+    font-size: 32px;
     text-align: center;
 }
 
@@ -55,9 +54,10 @@ body{
     background: transparent;
     border: none;
     outline: none;
-    border-bottom: 2px solid  rgb(245, 238, 226);
+    border: 2px solid transparent;
+    border-bottom: 2px solid white;
     font-size: 16px;
-    color:  rgb(245, 238, 226);
+    color:  white;
 }
 
 .input-box .icons{
@@ -70,20 +70,24 @@ body{
     width: 100%;
     height: 45px;
     background: transparent;
-    border: 2px solid: wheat;
+    border: 2px solid transparent;
     outline: none;
     border-radius: 40px;
     font-size: 20px;
     font-weight: 600;
-    font-family:  "Poppins", sans-serif;
     cursor: pointer;
     margin-top: 10px;
-    background:  rgba(245, 238, 226);
+    background: black;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.button:hover{
+    background: #c9a86a;
 }
 
 .register_form p{
     font-size: 15px;
-    font-family:  "Poppins", sans-serif;
     text-align: center;
     margin: 20px 0 10px;
 }
@@ -92,6 +96,11 @@ body{
     text-decoration: none;
     font-weight: 600;
     color: #c9a86a;
+}
+
+.register .register_form .input-box input:focus{
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 @media (max-width: 768px){
@@ -116,9 +125,8 @@ body{
 
 @media (max-width: 480px){
     body{
-        padding: 10px;
+        padding: 50px 10px 10px;
         align-items: flex-start;
-        padding-top: 50px;
     }
     .register{
         width: 100%;
