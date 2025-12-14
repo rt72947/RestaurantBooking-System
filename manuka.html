@@ -103,9 +103,13 @@
       <!-- Reservation wrapper -->
       <div class="reservation-wrap">
         <div class="reservation-form">
-          <h3>Rezervo Tavolinën Tënde</h3>
+          <div class="res-head">
+            <h3>Rezervo Tavolinën</h3>
+            <p>Plotëso të dhënat dhe ne të konfirmojmë sa më shpejt.</p>
+            <div class="res-divider"></div>
+          </div>
 
-          <form action="#" method="POST">
+          <form action="#" method="POST" class="res-grid">
             <label for="name">Emri juaj</label>
             <input
               type="text"
@@ -114,6 +118,29 @@
               placeholder="Shkruani emrin"
               required
             />
+            <div class="res-row">
+              <div class="col">
+                <label for="name">Emri juaj</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Shkruani emrin"
+                  required
+                />
+              </div>
+
+              <div class="col">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Shkruani email"
+                  required
+                />
+              </div>
+            </div>
 
             <label for="email">Email</label>
             <input
