@@ -17,39 +17,23 @@ body {
   justify-content: center;
 }
 
-.login {
+.contact-us {
   width: 100%;
-  max-width: 420px;
   display: flex;
   justify-content: center;
   padding: 20px;
 }
 
-.login-form {
+.contact-form {
   background: rgba(20, 20, 20, 0.9);
   padding: 35px 30px;
   border-radius: 14px;
   width: 100%;
+  max-width: 420px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.login-form .existing-account {
-  color: #fff;
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 15px;
-}
-
-.login-form .existing-account a {
-  color: #c9a86a;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.login-form h2 {
+.contact-form h2 {
   text-align: center;
   margin-bottom: 25px;
   color: #c9a86a;
@@ -60,13 +44,11 @@ body {
 .input-box {
   position: relative;
   margin-bottom: 18px;
-  display: flex;
-  align-items: center;
 }
 
 .input-box input {
   width: 100%;
-  padding: 12px 14px 12px 42px;
+  padding: 12px 14px;
   border-radius: 8px;
   border: none;
   outline: none;
@@ -84,11 +66,26 @@ body {
   background: #222;
 }
 
-.input-box .icons {
-  position: absolute;
-  left: 12px;
-  width: 20px;
-  height: 20px;
+.input-box textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #1f1f1f;
+  color: #fff;
+  font-size: 14px;
+  resize: none;
+  min-height: 90px; 
+}
+
+.input-box textarea::placeholder {
+  color: #aaa;
+}
+
+.input-box textarea:focus {
+  outline: 1px solid #c9a86a;
+  background: #222;
 }
 
 .button {
@@ -108,31 +105,8 @@ body {
   background: #b8965d;
 }
 
-.login-form p {
-  font-size: 15px;
-  text-align: center;
-  margin: 20px 0 10px;
-  color: #aaa;
-}
-
-.login-form p a {
-  color: #c9a86a;
-  font-weight: 600;
-  text-decoration: none;
-}
-
 @media (max-width: 480px) {
-  .login-form {
+  .contact-form {
     padding: 25px 20px;
-  }
-  .login-form h2 {
-    font-size: 24px;
-  }
-  .input-box input {
-    font-size: 14px;
-  }
-  .button {
-    font-size: 16px;
-    height: 38px;
   }
 }
