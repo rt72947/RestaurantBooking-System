@@ -1,0 +1,207 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Page background */
+body {
+  background: #0e0e0e;
+  color: #fff;
+}
+
+/* TOP BAR */
+.top {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back {
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.brand {
+  font-family: "Cinzel", serif;
+  letter-spacing: 2px;
+  color: #c9a86a;
+  font-size: 16px;
+}
+
+/* NAV CATEGORIES */
+.nav {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 12px 6%;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.nav a {
+  display: inline-block;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 12px;
+  border-radius: 18px;
+  transition: 0.2s ease;
+}
+
+.nav a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav a.active {
+  color: #111;
+  background: linear-gradient(135deg, #c9a86a, #e6d79c);
+  font-weight: 600;
+}
+
+/* TITLE */
+.head {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 45px 6% 25px;
+  text-align: center;
+}
+
+.head h1 {
+  font-family: "Cinzel", serif;
+  font-size: 42px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.head p {
+  color: #ccc;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* MENU LIST */
+.menu {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 6% 70px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ITEM CARD */
+.item {
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+  background: #141414;
+}
+
+/* LEFT SIDE (photo + text) */
+.left {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.left img {
+  width: 92px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Text */
+.name {
+  font-family: "Cinzel", serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.desc {
+  color: #bbb;
+  font-size: 13px;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Price */
+.price {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #c9a86a;
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  padding: 18px 10px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .head h1 {
+    font-size: 30px;
+    letter-spacing: 2px;
+  }
+
+  .item {
+    align-items: flex-start;
+  }
+
+  .left {
+    align-items: flex-start;
+  }
+
+  .left img {
+    width: 80px;
+    height: 64px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .price {
+    margin-left: 94px; /* afërsisht pas fotos */
+  }
+}
