@@ -122,7 +122,6 @@ body {
   background: #141414;
 }
 
-/* LEFT SIDE (photo + text) */
 .left {
   display: flex;
   gap: 14px;
