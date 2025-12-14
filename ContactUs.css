@@ -50,7 +50,7 @@ body {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid transparent;
   outline: none;
   background: #1f1f1f;
   color: #fff;
@@ -62,7 +62,8 @@ body {
 }
 
 .input-box input:focus {
-  outline: 1px solid #c9a86a;
+  outline: none;
+  border-color: #c9a86a;
   background: #222;
 }
 
@@ -103,6 +104,18 @@ body {
 
 .button:hover {
   background: #b8965d;
+}
+
+.input-box.error input {
+    border-color: red;
+}
+
+.input-box .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    position: absolute;
+    bottom: -18px;
 }
 
 @media (max-width: 480px) {
