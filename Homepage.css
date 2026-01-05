@@ -177,6 +177,12 @@ a {
   gap: 15px;
 }
 
+.about-row {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .footer a {
   color: white;
   text-decoration: none;
@@ -193,6 +199,20 @@ a {
 }
 
 .contact:hover {
+  background-color: #c9a86a;
+}
+
+.about {
+  padding: 10px 22px;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.about:hover {
   background-color: #c9a86a;
 }
 
