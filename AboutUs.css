@@ -5,7 +5,6 @@
     font-family: "Poppins", sans-serif;
 }
 
-/* --- BODY & LAYOUT --- */
 body{
     background: #0e0e0e;
     color: white;
@@ -15,7 +14,6 @@ main{
     width: 100%;
 }
 
-/* --- TOPBAR --- */
 .topbar {
   position: fixed;
   top: 0;
@@ -37,7 +35,6 @@ main{
   color: #c9a86a;
 }
 
-/* --- HERO BACKGROUND --- */
 .main_background{
     position: relative;
     width: 100%;
@@ -117,6 +114,7 @@ main{
 .card-title{
     margin-top: 12px;
     font-size: 20px;
+    color: #c9a86a;
 }
 
 footer{
