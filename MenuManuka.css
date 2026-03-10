@@ -5,20 +5,34 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Page background */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #0e0e0e;
   color: #fff;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }
 
 /* TOP BAR */
 .top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   max-width: 1000px;
   margin: 0 auto;
   padding: 18px 6%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(14, 14, 14, 0.85);
+  backdrop-filter: blur(10px);
 }
 
 .back {
@@ -26,6 +40,11 @@ body {
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 500;
+  transition: opacity 0.25s ease;
+}
+
+.back:hover {
+  opacity: 0.8;
 }
 
 .brand {
@@ -35,8 +54,11 @@ body {
   font-size: 16px;
 }
 
-/* NAV CATEGORIES */
+/* NAV */
 .nav {
+  position: sticky;
+  top: 68px;
+  z-index: 19;
   max-width: 1000px;
   margin: 0 auto;
   padding: 12px 6%;
@@ -44,6 +66,7 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow-x: auto;
   white-space: nowrap;
+  background: #0e0e0e;
 }
 
 .nav a {
@@ -53,9 +76,9 @@ body {
   font-size: 13px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 10px 12px;
-  border-radius: 18px;
-  transition: 0.2s ease;
+  padding: 10px 14px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
 }
 
 .nav a:hover {
@@ -73,7 +96,7 @@ body {
 .head {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 45px 6% 25px;
+  padding: 50px 6% 25px;
   text-align: center;
 }
 
@@ -82,61 +105,66 @@ body {
   font-size: 42px;
   letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .head p {
-  color: #ccc;
+  color: #bbb;
   max-width: 650px;
   margin: 0 auto;
   line-height: 1.7;
   font-size: 15px;
 }
 
-/* MENU LIST */
+/* MENU */
 .menu {
   max-width: 1000px;
   margin: 0 auto;
   padding: 10px 6% 70px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
-/* ITEM CARD */
 .item {
   background: #111;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 14px 14px;
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   align-items: center;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-  transition: transform 0.25s ease, background-color 0.25s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .item:hover {
   transform: translateY(-4px);
-  background: #141414;
+  background: #151515;
+  border-color: rgba(201, 168, 106, 0.25);
 }
 
 .left {
   display: flex;
   gap: 14px;
   align-items: center;
+  flex: 1;
 }
 
 .left img {
-  width: 92px;
-  height: 72px;
+  width: 96px;
+  height: 76px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
 }
 
-/* Text */
+.text {
+  flex: 1;
+}
+
 .name {
   font-family: "Cinzel", serif;
   letter-spacing: 1px;
@@ -148,11 +176,16 @@ body {
   color: #bbb;
   font-size: 13px;
   margin-top: 6px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* Price */
 .price {
+  min-width: 82px;
+  text-align: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(201, 168, 106, 0.12);
+  border: 1px solid rgba(201, 168, 106, 0.25);
   font-weight: 600;
   letter-spacing: 1px;
   color: #c9a86a;
@@ -160,11 +193,11 @@ body {
   font-size: 15px;
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
-  padding: 18px 10px;
+  padding: 20px 10px;
   color: rgba(255, 255, 255, 0.55);
   font-size: 13px;
 }
@@ -185,22 +218,47 @@ body {
   }
 
   .left img {
-    width: 80px;
-    height: 64px;
+    width: 82px;
+    height: 66px;
   }
 
   .name {
     font-size: 16px;
   }
+
+  .nav {
+    top: 64px;
+  }
 }
 
 @media (max-width: 480px) {
+  .top {
+    padding: 16px 5%;
+  }
+
+  .brand {
+    font-size: 14px;
+  }
+
   .item {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  .left {
+    width: 100%;
+  }
+
   .price {
-    margin-left: 94px; /* afërsisht pas fotos */
+    margin-top: 4px;
+  }
+
+  .head {
+    padding: 36px 5% 20px;
+  }
+
+  .head h1 {
+    font-size: 26px;
+    letter-spacing: 1px;
   }
 }
