@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="manuka.css" />
+    <link rel="stylesheet" href="restaurant.css" />
   </head>
 
   <body>
@@ -27,12 +27,12 @@
 
       <div class="hero-content">
         <h1>MANUKA<br />RESTAURANT</h1>
-        <a class="cta" href="Homepage.html">FIND OUT MORE</a>
+        <a class="cta" href="#menu">FIND OUT MORE</a>
       </div>
     </main>
 
     <!-- MENU -->
-    <section class="menu-section">
+    <section class="menu-section" id="menu">
       <h2>We Offer Top Notch</h2>
 
       <p class="menu-subtitle">
@@ -41,24 +41,32 @@
         me kujdes.
       </p>
 
-      <div class="menu-container">
-        <div class="menu-card">
-          <img src="petullatTradicionale.jpg" alt="Breakfast" />
-          <h3>Breakfast</h3>
-          <a href="MenuManuka.html" class="menu-link">View Menu</a>
+      <div class="menu-slider">
+        <button class="slider-btn prev" aria-label="Previous">&#10094;</button>
+
+        <div class="menu-viewport">
+          <div class="menu-container slider-track">
+            <div class="menu-card">
+              <img src="petullatTradicionale.jpg" alt="Breakfast" />
+              <h3>Breakfast</h3>
+              <a href="MenuManuka.html" class="menu-link">View Menu</a>
+            </div>
+
+            <div class="menu-card">
+              <img src="paragjella.jpg" alt="Appetizers" />
+              <h3>Appetizers</h3>
+              <a href="MenuManuka.html" class="menu-link">View Menu</a>
+            </div>
+
+            <div class="menu-card">
+              <img src="pijet.jpg" alt="Drinks" />
+              <h3>Drinks</h3>
+              <a href="MenuManuka.html" class="menu-link">View Menu</a>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-card">
-          <img src="paragjella.jpg" alt="Appetizers" />
-          <h3>Appetizers</h3>
-          <a href="MenuManuka.html" class="menu-link">View Menu</a>
-        </div>
-
-        <div class="menu-card">
-          <img src="pijet.jpg" alt="Drinks" />
-          <h3>Drinks</h3>
-          <a href="MenuManuka.html" class="menu-link">View Menu</a>
-        </div>
+        <button class="slider-btn next" aria-label="Next">&#10095;</button>
       </div>
     </section>
 
@@ -81,26 +89,28 @@
 
         <div class="contact-card">
           <h3>Phone</h3>
-          <p>+383 49 500 327</p>
+          <p><a href="tel:+38349500327">+383 49 500 327</a></p>
         </div>
 
         <div class="contact-card">
           <h3>Email</h3>
-          <p class="email">manukarestaurant2023@gmail.com</p>
+          <p class="email">
+            <a href="mailto:manukarestaurant2023@gmail.com">
+              manukarestaurant2023@gmail.com
+            </a>
+          </p>
         </div>
 
         <div class="contact-card">
           <h3>Follow Us</h3>
           <p>
-            <a href="https://www.facebook.com/manukarestaurant">Facebook</a> |
-            <a href="https://www.instagram.com/manukarestaurant/">Instagram</a>
-            |
-            <a href="https://www.tiktok.com/@manukarestaurant">TikTok</a>
+            <a href="https://www.facebook.com/manukarestaurant" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/manukarestaurant/" target="_blank">Instagram</a> |
+            <a href="https://www.tiktok.com/@manukarestaurant" target="_blank">TikTok</a>
           </p>
         </div>
       </div>
 
-      <!-- Reservation wrapper -->
       <div class="reservation-wrap">
         <div class="reservation-form">
           <div class="res-head">
@@ -109,23 +119,24 @@
             <div class="res-divider"></div>
           </div>
 
-          <form action="#" method="POST" class="res-grid">
-            <label for="name">Emri juaj</label>
+          <form action="#" method="POST" class="res-grid" id="reservationForm">
+            <label for="fullName">Emri juaj</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="fullName"
+              name="fullName"
               placeholder="Shkruani emrin"
               required
             />
+
             <div class="res-row">
               <div class="col">
-                <label for="name">Emri juaj</label>
+                <label for="phone">Telefoni</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Shkruani emrin"
+                  id="phone"
+                  name="phone"
+                  placeholder="Shkruani numrin"
                   required
                 />
               </div>
@@ -142,19 +153,12 @@
               </div>
             </div>
 
-            <label for="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Shkruani email"
-              required
-            />
             <div class="res-row">
               <div class="col">
                 <label for="date">Data</label>
                 <input type="date" id="date" name="date" required />
               </div>
+
               <div class="col">
                 <label for="time">Ora</label>
                 <input type="time" id="time" name="time" required />
@@ -180,9 +184,121 @@
             ></textarea>
 
             <button type="submit">Rezervo Tani</button>
+            <p id="formMessage"></p>
           </form>
         </div>
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const ctaBtn = document.querySelector(".cta");
+        const menuSection = document.querySelector("#menu");
+        const track = document.querySelector(".slider-track");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+        const slider = document.querySelector(".menu-slider");
+        const form = document.querySelector("#reservationForm");
+        const formMessage = document.querySelector("#formMessage");
+
+        if (ctaBtn && menuSection) {
+          ctaBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            menuSection.scrollIntoView({ behavior: "smooth" });
+          });
+        }
+
+        function getMoveAmount() {
+          const firstCard = track.querySelector(".menu-card");
+          const gap = parseFloat(getComputedStyle(track).gap) || 0;
+          return firstCard.offsetWidth + gap;
+        }
+
+        function nextSlide() {
+          const firstCard = track.firstElementChild;
+          const moveAmount = getMoveAmount();
+
+          track.style.transition = "transform 0.45s ease";
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          track.addEventListener(
+            "transitionend",
+            () => {
+              track.style.transition = "none";
+              track.appendChild(firstCard);
+              track.style.transform = "translateX(0)";
+            },
+            { once: true }
+          );
+        }
+
+        function prevSlide() {
+          const lastCard = track.lastElementChild;
+          const moveAmount = getMoveAmount();
+
+          track.style.transition = "none";
+          track.insertBefore(lastCard, track.firstElementChild);
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              track.style.transition = "transform 0.45s ease";
+              track.style.transform = "translateX(0)";
+            });
+          });
+        }
+
+        if (nextBtn) nextBtn.addEventListener("click", nextSlide);
+        if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+
+        let autoSlide = setInterval(nextSlide, 3000);
+
+        if (slider) {
+          slider.addEventListener("mouseenter", () => {
+            clearInterval(autoSlide);
+          });
+
+          slider.addEventListener("mouseleave", () => {
+            autoSlide = setInterval(nextSlide, 3000);
+          });
+        }
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight") nextSlide();
+          if (e.key === "ArrowLeft") prevSlide();
+        });
+
+        if (form) {
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const fullName = document.querySelector("#fullName").value.trim();
+            const phone = document.querySelector("#phone").value.trim();
+            const email = document.querySelector("#email").value.trim();
+            const date = document.querySelector("#date").value;
+            const time = document.querySelector("#time").value;
+            const guests = document.querySelector("#guests").value;
+
+            if (!fullName || !phone || !email || !date || !time || !guests) {
+              formMessage.textContent = "Ju lutem plotësoni të gjitha fushat obligative.";
+              formMessage.style.color = "red";
+              return;
+            }
+
+            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+            if (!emailPattern.test(email)) {
+              formMessage.textContent = "Ju lutem shkruani një email valid.";
+              formMessage.style.color = "red";
+              return;
+            }
+
+            formMessage.textContent = "Rezervimi u dërgua me sukses!";
+            formMessage.style.color = "green";
+
+            form.reset();
+          });
+        }
+      });
+    </script>
   </body>
 </html>

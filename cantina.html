@@ -3,107 +3,118 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DineSpot</title>
+    <title>Cantina De Juan</title>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Cinzel:wght@400;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="cantina.css" />
+
+    <link rel="stylesheet" href="restaurant.css" />
   </head>
 
   <body>
-    <header class="topbarCantina">
-      <a class="backCantina" href="Homepage.html">Home page</a>
+    <header class="topbar">
+      <a class="back" href="Homepage.html">Home Page</a>
     </header>
 
-    <main class="heroCantina">
-      <video autoplay muted loop playsinline class="hero-videoCantina">
+    <main class="hero">
+      <video autoplay muted loop playsinline class="hero-video">
         <source
           src="Cantina gati për sezonin më të bukur✨🎄.mp4"
           type="video/mp4"
         />
       </video>
 
-      <div class="overlayCantina"></div>
+      <div class="overlay"></div>
 
-      <div class="hero-contentCantina">
+      <div class="hero-content">
         <h1>CANTINA DE JUAN<br />RESTAURANT</h1>
-        <a class="ctaCantina" href="Homepage.html">FIND OUT MORE</a>
+        <a class="cta" href="#menu">FIND OUT MORE</a>
       </div>
     </main>
 
-    <!-- WE OFFER TOP NOTCH -->
-    <section class="menu-sectionCantina">
-      <div class="section-tagCantina">Flavors for Royalty</div>
-      <h2 class="gold-titleCantina">We Offer Top Notch</h2>
+    <!-- MENU -->
+    <section class="menu-section" id="menu">
+      <h2>We Offer Top Notch</h2>
 
-      <p class="menu-subtitleCantina">
+      <p class="menu-subtitle">
         Restoranti ynë meksikan ofron shije autentike me ngjyra, erëza dhe
         receta tradicionale. Tacos, burritos dhe specialitetet pikante
         përgatiten me përbërës të freskët dhe shërbehen në një ambient të
         ngrohtë me atmosferë latine.
       </p>
 
-      <div class="menu-containerCantina">
-        <div class="menu-cardCantina">
-          <div class="menu-frameCantina"></div>
-          <img src="breakfastCantina.jpg" alt="Breakfast" />
-          <h3>Breakfast</h3>
-          <a href="#" class="menu-linkCantina">View Menu</a>
+      <div class="menu-slider">
+        <button class="slider-btn prev" aria-label="Previous">&#10094;</button>
+
+        <div class="menu-viewport">
+          <div class="menu-container slider-track">
+            <div class="menu-card">
+              <img src="breakfastCantina.jpg" alt="Breakfast" />
+              <h3>Breakfast</h3>
+              <a href="#" class="menu-link">View Menu</a>
+            </div>
+
+            <div class="menu-card">
+              <img src="cantinaDREKE.jpg" alt="Main Course" />
+              <h3>Main Course</h3>
+              <a href="#" class="menu-link">View Menu</a>
+            </div>
+
+            <div class="menu-card">
+              <img src="DrinksCantina.jpg" alt="Drinks" />
+              <h3>Drinks</h3>
+              <a href="#" class="menu-link">View Menu</a>
+            </div>
+          </div>
         </div>
 
-        <div class="menu-cardCantina">
-          <div class="menu-frameCantina"></div>
-          <img src="cantinaDREKE.jpg" alt="LUNCH" />
-          <h3>Main Course</h3>
-          <a href="#" class="menu-linkCantina">View Menu</a>
-        </div>
-
-        <div class="menu-cardCantina">
-          <div class="menu-frameCantina"></div>
-          <img src="DrinksCantina.jpg" alt="Drinks" />
-          <h3>Drinks</h3>
-          <a href="#" class="menu-linkCantina">View Menu</a>
-        </div>
+        <button class="slider-btn next" aria-label="Next">&#10095;</button>
       </div>
     </section>
 
-    <!-- CONTACT US -->
-    <section class="contact-sectionCantina">
-      <div class="section-tagCantina">Get in Touch</div>
+    <!-- CONTACT + RESERVATION -->
+    <section class="contact-section">
       <h2>Contact Us</h2>
       <p>
         Na kontaktoni për rezervime, pyetje ose sugjerime. Ne jemi gjithmonë të
         gatshëm t'ju ndihmojmë.
       </p>
 
-      <div class="contact-containerCantina">
-        <div class="contact-cardCantina">
+      <div class="contact-container">
+        <div class="contact-card">
           <h3>Address</h3>
           <p>
             Skenderbeu, Ferizaj 70000 <br />
             08:00 - 24:00
           </p>
         </div>
-        <div class="contact-cardCantina">
+
+        <div class="contact-card">
           <h3>Phone</h3>
-          <p>+383 48 666 640</p>
+          <p><a href="tel:+38348666640">+383 48 666 640</a></p>
         </div>
-        <div class="contact-cardCantina">
+
+        <div class="contact-card">
           <h3>Email</h3>
-          <p>manukarestaurant2023@gmail.com</p>
+          <p class="email">
+            <a href="mailto:manukarestaurant2023@gmail.com">
+              manukarestaurant2023@gmail.com
+            </a>
+          </p>
         </div>
-        <div class="contact-cardCantina">
+
+        <div class="contact-card">
           <h3>Follow Us</h3>
           <p>
-            <a href="">Facebook</a> |
-            <a href="https://www.instagram.com/cantinadejuan/">Instagram</a>
-            <a href="https://www.tiktok.com/@cantina.de.juan">TikTok</a>
+            <a href="#" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/cantinadejuan/" target="_blank">Instagram</a> |
+            <a href="https://www.tiktok.com/@cantina.de.juan" target="_blank">TikTok</a>
           </p>
         </div>
       </div>
 
-      <!-- Reservation wrapper -->
       <div class="reservation-wrap">
         <div class="reservation-form">
           <div class="res-head">
@@ -112,23 +123,24 @@
             <div class="res-divider"></div>
           </div>
 
-          <form action="#" method="POST" class="res-grid">
-            <label for="name">Emri juaj</label>
+          <form action="#" method="POST" class="res-grid" id="reservationForm">
+            <label for="fullName">Emri juaj</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="fullName"
+              name="fullName"
               placeholder="Shkruani emrin"
               required
             />
+
             <div class="res-row">
               <div class="col">
-                <label for="name">Emri juaj</label>
+                <label for="phone">Telefoni</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Shkruani emrin"
+                  id="phone"
+                  name="phone"
+                  placeholder="Shkruani numrin"
                   required
                 />
               </div>
@@ -145,19 +157,12 @@
               </div>
             </div>
 
-            <label for="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Shkruani email"
-              required
-            />
             <div class="res-row">
               <div class="col">
                 <label for="date">Data</label>
                 <input type="date" id="date" name="date" required />
               </div>
+
               <div class="col">
                 <label for="time">Ora</label>
                 <input type="time" id="time" name="time" required />
@@ -183,9 +188,121 @@
             ></textarea>
 
             <button type="submit">Rezervo Tani</button>
+            <p id="formMessage"></p>
           </form>
         </div>
       </div>
     </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const ctaBtn = document.querySelector(".cta");
+        const menuSection = document.querySelector("#menu");
+        const track = document.querySelector(".slider-track");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+        const slider = document.querySelector(".menu-slider");
+        const form = document.querySelector("#reservationForm");
+        const formMessage = document.querySelector("#formMessage");
+
+        if (ctaBtn && menuSection) {
+          ctaBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            menuSection.scrollIntoView({ behavior: "smooth" });
+          });
+        }
+
+        function getMoveAmount() {
+          const firstCard = track.querySelector(".menu-card");
+          const gap = parseFloat(getComputedStyle(track).gap) || 0;
+          return firstCard.offsetWidth + gap;
+        }
+
+        function nextSlide() {
+          const firstCard = track.firstElementChild;
+          const moveAmount = getMoveAmount();
+
+          track.style.transition = "transform 0.45s ease";
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          track.addEventListener(
+            "transitionend",
+            () => {
+              track.style.transition = "none";
+              track.appendChild(firstCard);
+              track.style.transform = "translateX(0)";
+            },
+            { once: true }
+          );
+        }
+
+        function prevSlide() {
+          const lastCard = track.lastElementChild;
+          const moveAmount = getMoveAmount();
+
+          track.style.transition = "none";
+          track.insertBefore(lastCard, track.firstElementChild);
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              track.style.transition = "transform 0.45s ease";
+              track.style.transform = "translateX(0)";
+            });
+          });
+        }
+
+        if (nextBtn) nextBtn.addEventListener("click", nextSlide);
+        if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+
+        let autoSlide = setInterval(nextSlide, 3000);
+
+        if (slider) {
+          slider.addEventListener("mouseenter", () => {
+            clearInterval(autoSlide);
+          });
+
+          slider.addEventListener("mouseleave", () => {
+            autoSlide = setInterval(nextSlide, 3000);
+          });
+        }
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight") nextSlide();
+          if (e.key === "ArrowLeft") prevSlide();
+        });
+
+        if (form) {
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const fullName = document.querySelector("#fullName").value.trim();
+            const phone = document.querySelector("#phone").value.trim();
+            const email = document.querySelector("#email").value.trim();
+            const date = document.querySelector("#date").value;
+            const time = document.querySelector("#time").value;
+            const guests = document.querySelector("#guests").value;
+
+            if (!fullName || !phone || !email || !date || !time || !guests) {
+              formMessage.textContent = "Ju lutem plotësoni të gjitha fushat obligative.";
+              formMessage.style.color = "red";
+              return;
+            }
+
+            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+            if (!emailPattern.test(email)) {
+              formMessage.textContent = "Ju lutem shkruani një email valid.";
+              formMessage.style.color = "red";
+              return;
+            }
+
+            formMessage.textContent = "Rezervimi u dërgua me sukses!";
+            formMessage.style.color = "green";
+
+            form.reset();
+          });
+        }
+      });
+    </script>
   </body>
 </html>
