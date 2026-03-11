@@ -17,6 +17,11 @@ body {
     ),
     url("homepageimg.jpg") center/cover no-repeat;
 }
+.input-box input {
+  width: 100%;
+  border: 1px solid transparent;
+  outline: none;
+}
 
 .topbar {
   position: fixed;
