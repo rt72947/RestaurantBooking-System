@@ -3,21 +3,32 @@ session_start();
 include_once 'Database.php';
 include_once 'users.php';
 
+$db = new Database();
+$conn = $db->getConnection();
+$user = new User($conn);
+
+$error = '';
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $db = new Database();
-    $conn = $db->getConnection();
-    $user = new User(db: $conn);
-
-    $name = $_POST['username'];
-    $email = $_POST['email'];
+    $name = trim($_POST['username']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
 
-    if($user->register(username: $username,email: $email,password: $password,confirmPassword: $confirmPassword)){
-        header('Location: LogIn.php');
-        exit;
-    }else{
-        echo "Error registering user!";  
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->execute([':email' => $email]);
+    if($stmt->rowCount() > 0){
+        $error = "Ky email ekziston tashmë! Provoni një tjetër.";
+    } else {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt = $conn->prepare("INSERT INTO users (name,email,password,role) VALUES (:name,:email,:password,'user')");
+        if($stmt->execute([':name'=>$name, ':email'=>$email, ':password'=>$hashedPassword])){
+            $_SESSION['success'] = "Regjistrimi u krye me sukses!";
+            header('Location: LogIn.php');
+            exit;
+        } else {
+            $error = "Gabim gjatë regjistrimit. Provoni përsëri!";
+        }
     }
 }
 ?>
@@ -41,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <div class="register_form">
             <h2>SIGN UP</h2>
             <p class="register-text">Regjistrohu për të vazhduar</p>
-            <form id='form' action="" method="POST">
+            <form id="form" method="POST" action="">
                 <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
                 <?php if(isset($_SESSION['success'])) echo "<p style='color:green;'>".$_SESSION['success']."</p>"; ?>
 
@@ -65,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" >
                     <div class="error"></div>
                 </div>
-                <button type="submit"  name="submit" class="button">Sign Up</button>
+                <button type="submit" name="submit" class="button">Sign Up</button>
                 <p> Tashmë keni një llogari? <a href="LogIn.php"> Kyçu </a> </p>
             </form>
         </div>

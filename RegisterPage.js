@@ -1,19 +1,13 @@
-const form = document.getElementById('form');
 const username = document.getElementById('username');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('confirmPassword');
-
-form.addEventListener('submit', (e) => {
-    if(!validateInputs()){
-        e.preventDefault();
-    }
-});
+const form = document.getElementById('form');
 
 function setError(element, message){
     const parent = element.parentElement;
     const errorDiv = parent.querySelector('.error');
-    errorDiv.innerText = message;
+    if(errorDiv) errorDiv.innerText = message;
     parent.classList.add('error');
     parent.classList.remove('success');
 }
@@ -21,7 +15,7 @@ function setError(element, message){
 function setSuccess(element){
     const parent = element.parentElement;
     const errorDiv = parent.querySelector('.error');
-    errorDiv.innerText = '';
+    if(errorDiv) errorDiv.innerText = '';
     parent.classList.add('success');
     parent.classList.remove('error');
 }
@@ -31,9 +25,13 @@ function isValidEmail(email){
     return re.test(email.toLowerCase());
 }
 
-function validateInputs(){
-    let valid = true;
 
+function isValidPassword(password){
+    const re = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return re.test(password);
+}
+
+function validateInputs(){
     const usernameVal = username.value.trim();
     const emailVal = email.value.trim();
     const passwordVal = password.value.trim();
@@ -41,32 +39,35 @@ function validateInputs(){
 
     if(usernameVal === ''){
         setError(username, 'Username is required!');
-        valid = false;
-    } else setSuccess(username);
+    } else {
+        setSuccess(username);
+    }
 
     if(emailVal === ''){
         setError(email, 'Email is required!');
-        valid = false;
     } else if(!isValidEmail(emailVal)){
         setError(email, 'Email is not valid!');
-        valid = false;
-    } else setSuccess(email);
+    } else {
+        setSuccess(email);
+    }
 
     if(passwordVal === ''){
         setError(password, 'Password is required!');
-        valid = false;
-    } else if(passwordVal.length < 8){
-        setError(password, 'Password must be at least 8 characters!');
-        valid = false;
-    } else setSuccess(password);
+    } else if(!isValidPassword(passwordVal)){
+        setError(password, 'Password must be at least 8 chars, 1 uppercase, 1 number');
+    } else {
+        setSuccess(password);
+    }
 
     if(confirmVal === ''){
-        setError(confirmPassword, 'Please confirm password!');
-        valid = false;
+        setError(confirmPassword, 'Please confirm your password!');
     } else if(confirmVal !== passwordVal){
         setError(confirmPassword, 'Passwords do not match!');
-        valid = false;
-    } else setSuccess(confirmPassword);
-
-    return valid;
+    } else {
+        setSuccess(confirmPassword);
+    }
 }
+
+form.addEventListener('submit', () => {
+    validateInputs();
+});
