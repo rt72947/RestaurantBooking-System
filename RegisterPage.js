@@ -5,68 +5,68 @@ const password = document.getElementById('password');
 const confirmPassword = document.getElementById('confirmPassword');
 
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if(validateInputs()){
-        form.submit();
+    if(!validateInputs()){
+        e.preventDefault();
     }
-})
-const setError = (element, message) => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
+});
 
-    errorDisplay.innerText = message;
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success');
-
-}
-const setSuccess = element => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = '';
-    inputControl.classList.add('success');
-    inputControl.classList.remove('error');
+function setError(element, message){
+    const parent = element.parentElement;
+    const errorDiv = parent.querySelector('.error');
+    errorDiv.innerText = message;
+    parent.classList.add('error');
+    parent.classList.remove('success');
 }
 
-const isValidEmail = email => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return re.test(String(email).toLowerCase());
+function setSuccess(element){
+    const parent = element.parentElement;
+    const errorDiv = parent.querySelector('.error');
+    errorDiv.innerText = '';
+    parent.classList.add('success');
+    parent.classList.remove('error');
 }
-const validateInputs = () => {
-    const usernameValue = username.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
-    const confirmPasswordValue = confirmPassword.value.trim();
 
-    if(usernameValue === ''){
-        setError(username,'Username is required!');
-    }else{
-        setSuccess(username);
-    }
+function isValidEmail(email){
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+}
 
-    if(emailValue === ''){
-        setError(email,'Email is required!');
-    }else if(!isValidEmail(emailValue)){
-        setError(email,'Provide a valid email address!');
-    }else{
-        setSuccess(email);
-    }
+function validateInputs(){
+    let valid = true;
 
-    if(passwordValue === ''){
-        setError(password,'Password is required!');
-    }else if(passwordValue.length < 8){
-        setError(password,'Password must be at least 8 character!');
-    }else{
-        setSuccess(password);
-    }
+    const usernameVal = username.value.trim();
+    const emailVal = email.value.trim();
+    const passwordVal = password.value.trim();
+    const confirmVal = confirmPassword.value.trim();
 
-    if(confirmPasswordValue === ''){
-        setError(confirmPassword,'Please confirm your password!');
-    }else if(confirmPasswordValue !== passwordValue){
-        setError(confirmPassword,"Password doesn't match");
-    }else{
-        setSuccess(confirmPassword);
-    }
+    if(usernameVal === ''){
+        setError(username, 'Username is required!');
+        valid = false;
+    } else setSuccess(username);
 
+    if(emailVal === ''){
+        setError(email, 'Email is required!');
+        valid = false;
+    } else if(!isValidEmail(emailVal)){
+        setError(email, 'Email is not valid!');
+        valid = false;
+    } else setSuccess(email);
+
+    if(passwordVal === ''){
+        setError(password, 'Password is required!');
+        valid = false;
+    } else if(passwordVal.length < 8){
+        setError(password, 'Password must be at least 8 characters!');
+        valid = false;
+    } else setSuccess(password);
+
+    if(confirmVal === ''){
+        setError(confirmPassword, 'Please confirm password!');
+        valid = false;
+    } else if(confirmVal !== passwordVal){
+        setError(confirmPassword, 'Passwords do not match!');
+        valid = false;
+    } else setSuccess(confirmPassword);
+
+    return valid;
 }

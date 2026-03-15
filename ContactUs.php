@@ -1,14 +1,14 @@
 <?php
 session_start();
-include 'config/Database.php';
+include 'Database.php';
 
 $db = new Database();
 $conn = $db->getConnection();
 
 if(isset($_POST['submit'])){
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $message = trim($_POST['message']);
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['message'];
 
     if(empty($name) || empty($email) || empty($message)){
         $error = "Ju lutem plotësoni të gjitha fushat!";

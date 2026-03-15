@@ -1,11 +1,19 @@
 <?php
-include 'config/Database.php';
+include 'Database.php';
 $db = new Database();
 $conn = $db->getConnection();
 
 $stmt = $conn->prepare("SELECT * FROM restaurants ORDER BY id ASC");
 $stmt->execute();
 $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<?php
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: LoginPage.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

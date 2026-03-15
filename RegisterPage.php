@@ -1,35 +1,23 @@
 <?php
 session_start();
-include 'config/Database.php';
+include_once 'Database.php';
+include_once 'users.php';
 
-$db = new Database();
-$conn = $db->getConnection();
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $db = new Database();
+    $conn = $db->getConnection();
+    $user = new User(db: $conn);
 
-if(isset($_POST['submit'])){
     $name = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
 
-    if($password !== $confirmPassword){
-        $error = "Passwords nuk përputhen!";
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->execute([':email' => $email]);
-
-        if($stmt->rowCount() > 0){
-            $error = "Ky email është përdorur tashmë!";
-        } else {
-            $stmt = $conn->prepare("INSERT INTO users (name,email,password) VALUES (:name,:email,:password)");
-            $stmt->execute([
-                ':name' => $name,
-                ':email' => $email,
-                ':password' => $hashedPassword
-            ]);
-            $_SESSION['success'] = "Regjistrimi u krye me sukses!";
-            header("Location: login.php");
-            exit();
-        }
+    if($user->register(username: $username,email: $email,password: $password,confirmPassword: $confirmPassword)){
+        header('Location: LogIn.php');
+        exit;
+    }else{
+        echo "Error registering user!";  
     }
 }
 ?>
@@ -53,7 +41,7 @@ if(isset($_POST['submit'])){
         <div class="register_form">
             <h2>SIGN UP</h2>
             <p class="register-text">Regjistrohu për të vazhduar</p>
-            <form id='form' action="" method="post">
+            <form id='form' action="" method="POST">
                 <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
                 <?php if(isset($_SESSION['success'])) echo "<p style='color:green;'>".$_SESSION['success']."</p>"; ?>
 
@@ -78,7 +66,7 @@ if(isset($_POST['submit'])){
                     <div class="error"></div>
                 </div>
                 <button type="submit"  name="submit" class="button">Sign Up</button>
-                <p> Tashmë keni një llogari? <a href="LogIn.html"> Kyçu </a> </p>
+                <p> Tashmë keni një llogari? <a href="LogIn.php"> Kyçu </a> </p>
             </form>
         </div>
     </div>
