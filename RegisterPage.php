@@ -14,8 +14,6 @@ if(isset($_POST['submit'])){
     if($password !== $confirmPassword){
         $error = "Passwords nuk përputhen!";
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute([':email' => $email]);
 
