@@ -1,3 +1,14 @@
+<?php
+include 'config/Database.php';
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM restaurants LIMIT 6");
+$stmt->execute();
+$restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +21,7 @@
 </head>
 <body>
     <header class="topbar">
-      <a class="back" href="Homepage.html">Home Page</a>
+      <a class="back" href="Homepage.php">Home Page</a>
     </header>
 
     <main>
@@ -29,7 +40,7 @@
                     Këtu mund të eksploroni menutë, shërbimet dhe eksperiencat kulinare që çdo vend ka për të ofruar, duke ju ndihmuar të gjeni 
                     gjithmonë diçka të re për të shijuar. Ne synojmë të sjellim një pasqyrë të plotë të atmosferës, shijeve dhe stilit unik të çdo restoranti, 
                     nga kuzhina tradicionale shqiptare te konceptet më moderne dhe ndërkombëtare.
-                    <br> <br>
+                    <br><br>
                     Qëllimi ynë është të ndihmojmë banorët dhe vizitorët të zbulojnë vendet më të veçanta dhe shijet më të mira të qytetit. 
                     Në të njëjtën kohë, mbështesim bizneset lokale duke krijuar një platformë të thjeshtë, të besueshme dhe të këndshme, 
                     ku çdo dashamirës i ushqimit mund të gjejë rekomandime të dobishme, ide për vizita dhe përvoja kulinare të paharrueshme. 
@@ -43,67 +54,29 @@
                     Ferizaj është një qytet dinamik dhe në zhvillim të shpejtë në Kosovë, i njohur për pozicionin strategjik, kulturën e pasur dhe mikpritjen e veçantë të banorëve. 
                     Ai kombinon elemente moderne me trashëgimi historike, me arkitekturë bashkëkohore, hapësira publike në zhvillim dhe lagje tradicionale që ruajnë identitetin lokal. 
                     Komuniteti i rinjve dhe energjia e qytetit e bëjnë Ferizajin një vend aktiv dhe të gjallë në aspektin social, kulturor dhe ekonomik.
-                    <br> <br>
+                    <br><br>
                     Në qytet nuk mungojnë restorantet, bistro dhe lokalet që bashkojnë shijet tradicionale shqiptare me kuzhinën ndërkombëtare, 
                     duke krijuar një ambient të këndshëm për vizitorët dhe banorët. Ritmi i gjallë i jetës urbane, aktivitetet kulturore dhe ngjarjet artistike e pozicionojnë Ferizajin si një qytet me potencial të madh për zhvillim, inovacion dhe përvojë të pasur sociale dhe kulturore.
                 </p>
             </div>    
+
             <div class="card-slider swiper">
-                 <div class="swiper-wrapper">
-
-                <div class="card-item swiper-slide">
-                    <img src="manuka2.jpg" class="card-image">
-                    <div class="card-details">
-                        <h3 class="card-title">MANUKA</h3>
-                        <p><i>- Darka perfekte për dy.</i></p>
-                    </div>
+                <div class="swiper-wrapper">
+                    <?php foreach($restaurants as $r): ?>
+                        <div class="card-item swiper-slide">
+                            <img src="<?= $r['image'] ?>" class="card-image" alt="<?= $r['name'] ?>">
+                            <div class="card-details">
+                                <h3 class="card-title"><?= $r['name'] ?></h3>
+                                <p><i><?= $r['description'] ?></i></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
-                <div class="card-item swiper-slide">
-                    <img src="cantina.png" class="card-image">
-                    <div class="card-details">
-                        <h3 class="card-title">CANTINA DE JUAN</h3>
-                        <p><i>- Shije autentike, atmosferë e ngrohtë.</i></p>
-                    </div>
-                </div>
-
-                <div class="card-item swiper-slide">
-                    <img src="thehills2.webp" class="card-image">
-                    <div class="card-details">
-                        <h3 class="card-title">THE HILLS RESTAURANT</h3>
-                        <p><i>- Darka romantike dhe surpriza të veçanta.</i></p>
-                    </div>
-                </div>
-
-                <div class="card-item swiper-slide">
-                    <img src="ujervara.webp" class="card-image">
-                    <div class="card-details">
-                        <h3 class="card-title">RESTAURANT UJEVARA</h3>
-                        <p><i>- Ushqim i shijshëm, ambient komod.</i></p>
-                    </div>
-                </div>
-
-                <div class="card-item swiper-slide">
-                    <img src="ilgusto3.jpg" class="card-image">
-                    <div class="card-details">
-                        <h3 class="card-title">IL GUSTO</h3>
-                        <p><i>- Eksperiencë italiane, ambient rehatues.</i></p>
-                    </div>
-                </div>
-
-                <div class="card-item swiper-slide">
-                    <img src="meilora.jpg" class="card-image">
-                    <div class="card-details">
-                        <h3 class="card-title">MEILORA RESTAURANT</h3>
-                        <p><i>- Shije, elegancë dhe mikpritje.</i></p>
-                    </div>
-                </div>
-
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
             </div>
-
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-pagination"></div>
 
         </div>
     </main>
@@ -116,12 +89,21 @@
                     Keni pyetje, dëshironi të rezervoni një tavolinë apo të organizoni një event?  
                     Na shkruani dhe do ju kontaktojmë sa më shpejt.
                 </p>
-                <a href="ContactUs.html"><button class="contact">Contact Us</button></a>
+                <a href="ContactUs.php"><button class="contact">Contact Us</button></a>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-    <script src="AboutUs.js"></script>
+    <script>
+        const swiper = new Swiper(".card-slider", {
+            loop: true,
+            spaceBetween: 30,
+            grabCursor: true,
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            breakpoints: { 0:{ slidesPerView:1 }, 768:{ slidesPerView:2 }, 1080:{ slidesPerView:3 } }
+        });
+    </script>
 </body>
 </html>

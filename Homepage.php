@@ -1,3 +1,13 @@
+<?php
+include 'config/Database.php';
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM restaurants ORDER BY id ASC");
+$stmt->execute();
+$restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +23,9 @@
             <div class="nav-left">
                 <a href="#home"><b>Home</b></a>
                 <a href="#about"><b>About Us</b></a>
-                <a href="ContactUs.html"><b>Contact Us</b></a>
+                <a href="ContactUs.php"><b>Contact Us</b></a>
             </div>
-            <a href="RegisterPage.html"><button class="button">Sign Up</button> </a>
+            <a href="RegisterPage.php"><button class="button">Sign Up</button> </a>
         </nav>
     </header>
 
@@ -30,41 +40,13 @@
             </div>
 
             <div class="restaurant_listing">
+                <?php foreach($restaurants as $r): ?>
                 <div class="restuarant">
-                    <a href="#"><img src="ujervara.webp" alt="Ujevara" /></a>
-                    <h3>RESTAURANT UJEVARA</h3>
-                    <p><i>- Ushqim i shijshëm, ambient komod.</i></p>
+                    <a href="#"><img src="<?= $r['image'] ?>" alt="<?= $r['name'] ?>" /></a>
+                    <h3><?= $r['name'] ?></h3>
+                    <p><i><?= $r['description'] ?></i></p>
                 </div>
-
-                <div class="restuarant">
-                    <a href="cantina.html"><img src="cantina.png" alt="Cantina de Juan" /></a>
-                    <h3>CANTINA DE JUAN</h3>
-                    <p><i>- Shije autentike, atmosferë e ngrohtë.</i></p>
-                </div>
-
-                <div class="restuarant">
-                    <a href="#"><img src="ilgusto3.jpg" alt="Il Gusto" /></a>
-                    <h3>IL GUSTO</h3>
-                    <p><i>- Eksperiencë italiane, ambient rehatues.</i></p>
-                </div>
-
-                <div class="restuarant">
-                    <a href="#"><img src="thehills2.webp" alt="The Hills" /></a>
-                    <h3>THE HILLS RESTAURANT</h3>
-                    <p><i>- Darka romantike dhe surpriza të veçanta.</i></p>
-                </div>
-
-                <div class="restuarant">
-                    <a href="manuka.html"><img src="manuka2.jpg" alt="Manuka" /></a>
-                    <h3>MANUKA</h3>
-                    <p><i>- Darka perfekte për dy.</i></p>
-                </div>
-
-                <div class="restuarant">
-                    <a href="meilora.html"><img src="meilora.jpg" alt="Meilora" /></a>
-                    <h3>MEILORA RESTAURANT</h3>
-                    <p><i>- Shije, elegancë dhe mikpritje.</i></p>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </main>
@@ -76,7 +58,7 @@
                 <p>Dine Spot sjell restorantet më të mira të Ferizajt në një vend.
                     Zbuloni shije të shkëlqyera dhe momente të veçanta çdo ditë.
                  </p>
-                <a href="AboutUs.html"><button class="about">Learn more</button></a>
+                <a href="AboutUs.php"><button class="about">Learn more</button></a>
             </div>
         </div>
 
@@ -87,7 +69,7 @@
                     Keni pyetje, dëshironi të rezervoni një tavolinë apo të organizoni një event?  
                     Na shkruani dhe do ju kontaktojmë sa më shpejt.
                 </p>
-                <a href="ContactUs.html"><button class="contact">Contact Us</button></a>
+                <a href="ContactUs.php"><button class="contact">Contact Us</button></a>
             </div>
         </div>
     </footer>
