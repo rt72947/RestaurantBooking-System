@@ -32,6 +32,8 @@ function isValidPassword(password){
 }
 
 function validateInputs(){
+    let isValid = true;
+
     const usernameVal = username.value.trim();
     const emailVal = email.value.trim();
     const passwordVal = password.value.trim();
@@ -39,35 +41,46 @@ function validateInputs(){
 
     if(usernameVal === ''){
         setError(username, 'Username is required!');
+        isValid = false;
     } else {
         setSuccess(username);
     }
 
     if(emailVal === ''){
         setError(email, 'Email is required!');
+        isValid = false;
     } else if(!isValidEmail(emailVal)){
         setError(email, 'Email is not valid!');
+        isValid = false;
     } else {
         setSuccess(email);
     }
 
     if(passwordVal === ''){
         setError(password, 'Password is required!');
+        isValid = false;
     } else if(!isValidPassword(passwordVal)){
         setError(password, 'Password must be at least 8 chars, 1 uppercase, 1 number');
+        isValid = false;
     } else {
         setSuccess(password);
     }
 
     if(confirmVal === ''){
         setError(confirmPassword, 'Please confirm your password!');
+        isValid = false;
     } else if(confirmVal !== passwordVal){
         setError(confirmPassword, 'Passwords do not match!');
+        isValid = false;
     } else {
         setSuccess(confirmPassword);
     }
+
+    return isValid;
 }
 
-form.addEventListener('submit', () => {
-    validateInputs();
+form.addEventListener('submit', function(e){
+    if(!validateInputs()){
+        e.preventDefault();
+    }
 });

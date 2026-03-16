@@ -8,26 +8,64 @@ $conn = $db->getConnection();
 $user = new User($conn);
 
 $error = '';
+$username = '';
+$email = '';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $name = trim($_POST['username']);
+
+    $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
-    $stmt->execute([':email' => $email]);
-    if($stmt->rowCount() > 0){
-        $error = "Ky email ekziston tashmë! Provoni një tjetër.";
-    } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    if(empty($username)){
+        $error = "Username është i detyrueshëm!";
+    }
+    elseif(empty($email)){
+        $error = "Email është i detyrueshëm!";
+    }
+    elseif(!preg_match("/^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$/", $email)){
+        $error = "Email nuk është valid!";
+    }
+    elseif(empty($password)){
+        $error = "Password është i detyrueshëm!";
+    }
+    elseif(!preg_match("/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/", $password)){
+        $error = "Password duhet të ketë min 8 karaktere, 1 shkronjë të madhe dhe 1 numër!";
+    }
+    elseif(empty($confirmPassword)){
+        $error = "Ju lutem konfirmoni password-in!";
+    }
+    elseif($password !== $confirmPassword){
+        $error = "Password-at nuk përputhen!";
+    }
+    else{
 
-        $stmt = $conn->prepare("INSERT INTO users (name,email,password,role) VALUES (:name,:email,:password,'user')");
-        if($stmt->execute([':name'=>$name, ':email'=>$email, ':password'=>$hashedPassword])){
-            $_SESSION['success'] = "Regjistrimi u krye me sukses!";
-            header('Location: LogIn.php');
-            exit;
-        } else {
-            $error = "Gabim gjatë regjistrimit. Provoni përsëri!";
+        $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
+        $stmt->execute([':email' => $email]);
+
+        if($stmt->rowCount() > 0){
+            $error = "Ky email ekziston tashmë!";
+        } 
+        else{
+
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $stmt = $conn->prepare("INSERT INTO users (name,email,password,role) 
+                                    VALUES (:name,:email,:password,'user')");
+
+            if($stmt->execute([
+                ':name'=>$username,
+                ':email'=>$email,
+                ':password'=>$hashedPassword
+            ])){
+                $_SESSION['success'] = "Regjistrimi u krye me sukses!";
+                header("Location: LogIn.php");
+                exit();
+            }
+            else{
+                $error = "Gabim gjatë regjistrimit. Provoni përsëri!";
+            }
         }
     }
 }
@@ -41,44 +79,51 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Register Page</title>
     <link rel="stylesheet" href="RegisterPage.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
-    <script defer src="RegisterPage.js"></script>
-</head>
-<body>
-    <header class="topbar">
-      <a class="back" href="Homepage.php">Home Page</a>
-    </header>
 
+</head>
+
+<body>
     <div class="register">
+
         <div class="register_form">
             <h2>SIGN UP</h2>
             <p class="register-text">Regjistrohu për të vazhduar</p>
-            <form id="form" method="POST" action="">
-                <?php if(isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-                <?php if(isset($_SESSION['success'])) echo "<p style='color:green;'>".$_SESSION['success']."</p>"; ?>
 
-                <div class="input-box" >
-                    <img src="user.png" class="icons" alt="Username">
-                    <input id="username" type="text"  name="username" placeholder="First Name" >
-                    <div class="error"></div>
-                </div>
-                <div class="input-box">
-                    <img src="emaill.png" class="icons" alt="Email">
-                    <input id="email" type="text"  name="email"  placeholder="Email" >
-                    <div class="error"></div>
-                </div>
-                <div class="input-box">
-                    <img src="pass.png" class="icons" alt="password">
-                    <input id="password" type="password" name="password" placeholder="Password" >
-                    <div class="error"></div>
-                </div>
-                <div class="input-box">
-                    <img src="pass.png" class="icons" alt="password">
-                    <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm password" >
-                    <div class="error"></div>
-                </div>
-                <button type="submit" name="submit" class="button">Sign Up</button>
-                <p> Tashmë keni një llogari? <a href="LogIn.php"> Kyçu </a> </p>
-            </form>
+        <form method="POST">
+
+            <?php if(!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+            <?php   
+                if(isset($_SESSION['success'])){
+                    echo "<p style='color:green;'>".$_SESSION['success']."</p>";
+                    unset($_SESSION['success']);
+               }
+            ?>
+
+            <div class="input-box">
+                <img src="user.png" class="icons" alt="Username">
+                <input type="text" name="username" placeholder="First Name" value="<?php echo htmlspecialchars($username); ?>">
+            </div>
+
+            <div class="input-box">
+                <img src="emaill.png" class="icons" alt="Email">
+
+                <input type="text" name="email" placeholder="Email" value="<?php echo htmlspecialchars($email); ?>">
+            </div>
+
+            <div class="input-box">
+                <img src="pass.png" class="icons" alt="password">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+
+            <div class="input-box">
+                <img src="pass.png" class="icons" alt="password">
+                <input type="password" name="confirmPassword" placeholder="Confirm password">
+            </div>
+
+            <button type="submit" name='submit' class="button">Sign Up</button>
+            <p> Tashmë keni një llogari? <a href="LogIn.php">Kyçu</a></p>
+
+        </form>
         </div>
     </div>
 </body>

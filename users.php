@@ -6,7 +6,7 @@ class User {
     public function __construct($db) {
         $this->conn = $db;
     }
-
+//ka ra afat
     public function register($name, $email, $password, $role = 'user'): bool {
         $query = "INSERT INTO {$this->table_name} (name, email, password, role) 
                   VALUES (:name, :email, :password, :role)";
