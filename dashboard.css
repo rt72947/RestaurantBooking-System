@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f4f4f4;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+    margin-top: 40px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    word-break: break-word;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.create-btn {
+    background: green;
+    color: #fff;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.edit-btn {
+    background: orange;
+    color: #fff;
+}
+
+.delete-btn {
+    background: red;
+    color: #fff;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.success {
+    color: green;
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: auto;
+    background: #007bff;
+    color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        background: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .create-btn {
+        font-size: 1rem;
+    }
+
+    button {
+        font-size: 0.85rem;
+        padding: 6px;
+    }
+}
+
+table:nth-of-type(2) {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}

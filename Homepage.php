@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header("Location: LoginPage.php");
+    exit();
+}
+
 include 'Database.php';
 $db = new Database();
 $conn = $db->getConnection();
@@ -6,14 +12,6 @@ $conn = $db->getConnection();
 $stmt = $conn->prepare("SELECT * FROM restaurants ORDER BY id ASC");
 $stmt->execute();
 $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-
-<?php
-session_start();
-if(!isset($_SESSION['user_id'])){
-    header("Location: LoginPage.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +31,7 @@ if(!isset($_SESSION['user_id'])){
                 <a href="#about"><b>About Us</b></a>
                 <a href="ContactUs.php"><b>Contact Us</b></a>
             </div>
-            <a href="RegisterPage.php"><button class="button">Sign Up</button> </a>
+            <a href="LogOut.php"><button class="button">Log Out</button> </a>
         </nav>
     </header>
 
