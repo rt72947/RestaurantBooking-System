@@ -1,6 +1,13 @@
 <?php
+require_once 'database.php';
+
+$db = new Database();
+$conn = $db->getConnection();
+
 $errors = [];
 $success = "";
+
+$restaurantId = 2; // CANTINA DE JUAN
 
 $fullName = "";
 $phone = "";
@@ -60,17 +67,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (empty($errors)) {
-        $success = "Rezervimi u dërgua me sukses!";
+        try {
+            $sql = "INSERT INTO reservations 
+                    (restaurant_id, full_name, phone, email, date, time, guests, message)
+                    VALUES 
+                    (:restaurant_id, :full_name, :phone, :email, :date, :time, :guests, :message)";
 
-        // Këtu më vonë do ta lidhim me databazë (INSERT)
+            $stmt = $conn->prepare($sql);
 
-        $fullName = "";
-        $phone = "";
-        $email = "";
-        $date = "";
-        $time = "";
-        $guests = "";
-        $message = "";
+            $stmt->execute([
+                ':restaurant_id' => $restaurantId,
+                ':full_name' => $fullName,
+                ':phone' => $phone,
+                ':email' => $email,
+                ':date' => $date,
+                ':time' => $time,
+                ':guests' => $guests,
+                ':message' => $message
+            ]);
+
+            $success = "Rezervimi u ruajt me sukses në databazë!";
+
+            $fullName = "";
+            $phone = "";
+            $email = "";
+            $date = "";
+            $time = "";
+            $guests = "";
+            $message = "";
+        } catch (PDOException $e) {
+            $errors[] = "Gabim gjatë ruajtjes në databazë: " . $e->getMessage();
+        }
     }
 }
 ?>
