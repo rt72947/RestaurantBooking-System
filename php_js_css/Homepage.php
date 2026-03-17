@@ -31,14 +31,14 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="#about"><b>About Us</b></a>
                 <a href="ContactUs.php"><b>Contact Us</b></a>
             </div>
-            <a href="LogOut.php"><button class="button">Log Out</button> </a>
+            <a href="LogOut.php"><button class="button">Log Out</button></a>
         </nav>
     </header>
 
     <main>
         <div class="main">
             <div class="main_background">
-                <img src="homepageimg.jpg" alt="background photo" />
+                <img src="images/homepageimg.jpg" alt="background photo" />
                 <div class="main_text">
                     <h3>Dine Spot</h3>
                     <p class="tagline"><i>Zbuloni shijen, ndjeni atmosferën, krijoni momentet e veçanta.</i></p>
@@ -63,7 +63,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="about-row" id="about">
                 <p>Dine Spot sjell restorantet më të mira të Ferizajt në një vend.
                     Zbuloni shije të shkëlqyera dhe momente të veçanta çdo ditë.
-                 </p>
+                </p>
                 <a href="AboutUs.php"><button class="about">Learn more</button></a>
             </div>
         </div>

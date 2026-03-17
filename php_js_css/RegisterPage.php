@@ -73,47 +73,56 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Register Page</title>
+
 <link rel="stylesheet" href="RegisterPage.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
 </head>
 
 <body>
+
 <div class="register">
     <div class="register_form">
         <h2>SIGN UP</h2>
         <p class="register-text">Regjistrohu për të vazhduar</p>
 
         <form method="POST">
+
             <?php if(!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
-            <?php if(isset($_SESSION['success'])) {
+
+            <?php 
+            if(isset($_SESSION['success'])) {
                 echo "<p style='color:green;'>".$_SESSION['success']."</p>";
                 unset($_SESSION['success']);
-            } ?>
+            } 
+            ?>
 
             <div class="input-box">
-                <img src="user.png" class="icons" alt="Username">
+                <img src="images/user.png" class="icons" alt="Username">
                 <input type="text" name="username" placeholder="First Name" value="<?= htmlspecialchars($username) ?>" required>
             </div>
 
             <div class="input-box">
-                <img src="emaill.png" class="icons" alt="Email">
+                <img src="images/emaill.png" class="icons" alt="Email">
                 <input type="email" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>" required>
             </div>
 
             <div class="input-box">
-                <img src="pass.png" class="icons" alt="Password">
+                <img src="images/pass.png" class="icons" alt="Password">
                 <input type="password" name="password" placeholder="Password" required>
             </div>
 
             <div class="input-box">
-                <img src="pass.png" class="icons" alt="Confirm Password">
+                <img src="images/pass.png" class="icons" alt="Confirm Password">
                 <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
             </div>
 
-            <button type="submit" name='submit' class="button">Sign Up</button>
+            <button type="submit" name="submit" class="button">Sign Up</button>
+
             <p>Tashmë keni një llogari? <a href="LogIn.php">Kyçu</a></p>
         </form>
     </div>
 </div>
+
 </body>
 </html>

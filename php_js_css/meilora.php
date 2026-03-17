@@ -21,7 +21,7 @@
     <main class="hero">
       <video autoplay muted loop playsinline class="hero-video">
         <source
-          src="Fryma e festave ka mbërritur në Ad Meliora. Mirë se vini në atmosferën tonë të ngrohtë dhe elegante!.mp4"
+          src="videos/Fryma e festave ka mbërritur në Ad Meliora. Mirë se vini në atmosferën tonë të ngrohtë dhe elegante!.mp4"
           type="video/mp4"
         />
       </video>
@@ -34,7 +34,6 @@
       </div>
     </main>
 
-    <!-- MENU -->
     <section class="menu-section" id="menu">
       <h2>We Offer Top Notch</h2>
 
@@ -49,19 +48,19 @@
         <div class="menu-viewport">
           <div class="menu-container slider-track">
             <div class="menu-card">
-              <img src="breakfastMeilora.jpg" alt="Breakfast" />
+              <img src="images/breakfastMeilora.jpg" alt="Breakfast" />
               <h3>Breakfast</h3>
               <a href="#" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
-              <img src="lunchMeilora.jpg" alt="Main Course" />
+              <img src="images/lunchMeilora.jpg" alt="Main Course" />
               <h3>Main Course</h3>
               <a href="#" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
-              <img src="MEILORAdrinks.jpg" alt="Drinks" />
+              <img src="images/MEILORAdrinks.jpg" alt="Drinks" />
               <h3>Drinks</h3>
               <a href="#" class="menu-link">View Menu</a>
             </div>
@@ -72,7 +71,6 @@
       </div>
     </section>
 
-    <!-- CONTACT + RESERVATION -->
     <section class="contact-section">
       <h2>Contact Us</h2>
       <p>

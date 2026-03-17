@@ -7,13 +7,13 @@
     />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Meilora Mëngjesi</title>
+    <title>Manuka Mëngjesi</title>
     <link rel="stylesheet" href="menu.css" />
   </head>
   <body>
     <div class="top">
-      <a class="back" href="meilora.html">Back</a>
-      <div class="brand">Meilora Restaurant</div>
+      <a class="back" href="manuka.html">Back</a>
+      <div class="brand">Manuka Restaurant</div>
     </div>
 
     <div class="nav">
@@ -30,61 +30,63 @@
     </div>
 
     <div class="menu">
+
       <div class="item">
         <div class="left">
-          <img src="breakfastMeilora.jpg" alt="tost" />
-          <div class="name">Tost tradicional</div>
-          <div class="desc">Bukë e thekur, avokado, vezë.</div>
+          <img src="images/PetullaMengjesi.avif" alt="Petullat" />
+          <div class="name">Petulla Mëngjesi</div>
+          <div class="desc">Petulla të freskëta.</div>
         </div>
         <div class="price">€2.75</div>
       </div>
 
       <div class="item">
         <div class="left">
-          <img src="Sincronizada.jpg" alt="Sincronizada" />
-          <div class="name">Sincronizada</div>
-          <div class="desc">Tortille, vezë, proshutë, djathë, domatina, ullinj.</div>
+          <img src="images/Omlet.avif" alt="Omlet" />
+          <div class="name">Omlet</div>
+          <div class="desc">Vezë, proshutë, djath, domatina, ullinj.</div>
         </div>
         <div class="price">€3.20</div>
       </div>
 
       <div class="item">
         <div class="left">
-          <img src="tetelas.jpg" alt="tetelas" />
-          <div class="name">Mëngjes Meilora</div>
-          <div class="desc">Brumë misri i nixtamalizuar (masa harina), fasule të skuqura...</div>
+          <img src="images/SalmonITymosur.avif" alt="Salmon i tymosur" />
+          <div class="name">Mëngjes Manuka</div>
+          <div class="desc">Salmon i tymosur, spinaq, djath, vezë, sos…</div>
         </div>
         <div class="price">€5.39</div>
       </div>
 
       <div class="item">
         <div class="left">
-          <img src="mengjesMeksikanMeilora.webp" alt="Vezë të ziera" />
-          <div class="name">Vezë të ziera</div>
-          <div class="desc">Tortilla, domate, vezë dhe avokado.</div>
+          <img src="images/SandwichManuka.avif" alt="SandwichManuka" />
+          <div class="name">Sandwich Manuka</div>
+          <div class="desc">Rukolla, domate, mozzarella.</div>
         </div>
         <div class="price">€2.75</div>
       </div>
 
       <div class="item">
         <div class="left">
-          <img src="tamalesMeilora.jpg" alt="Mëngjes tradicional Tamales" />
-          <div class="name">Tamale</div>
-          <div class="desc">Mish derri, pulë ose fasule dhe djathë.</div>
+          <img src="images/SandwichNePete.avif" alt="SandwichNePete" />
+          <div class="name">Sandwich në Petë me Mish Pule</div>
+          <div class="desc">Mish pule, perime, patate.</div>
         </div>
         <div class="price">€4.29</div>
       </div>
 
       <div class="item">
         <div class="left">
-          <img src="MeiloraVeze.jpg" alt="Vezë të fërguara" />
-          <div class="name">Vezë të fërguara me domate</div>
-          <div class="desc">Vezë, domate, origano.</div>
+          <img src="images/SandwichNePete.avif" alt="SandwichNePete" />
+          <div class="name">Sandwich në Petë Mish Viçi</div>
+          <div class="desc">Mish viçi, perime, patate.</div>
         </div>
-        <div class="price">€4.00</div>
+        <div class="price">€4.29</div>
       </div>
+
     </div>
 
-    <div class="footer">© Meilora Restaurant • Ferizaj</div>
+    <div class="footer">© Manuka Restaurant • Ferizaj</div>
   </body>
 </html>

@@ -27,7 +27,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <main>
         <div class="main">
             <div class="main_background">
-                <img src="homepageimg.jpg" alt="background photo" />
+                <img src="images/homepageimg.jpg" alt="background photo" />
                 <div class="main_text">
                     <h3><i>Dine Spot</i></h3>
                 </div>
@@ -49,7 +49,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="ferizaj">
-                <img src="ferizaj.jpg" alt="ferizaj photo" />
+                <img src="images/ferizaj.jpg" alt="ferizaj photo" />
                 <p>
                     Ferizaj është një qytet dinamik dhe në zhvillim të shpejtë në Kosovë, i njohur për pozicionin strategjik, kulturën e pasur dhe mikpritjen e veçantë të banorëve. 
                     Ai kombinon elemente moderne me trashëgimi historike, me arkitekturë bashkëkohore, hapësira publike në zhvillim dhe lagje tradicionale që ruajnë identitetin lokal. 

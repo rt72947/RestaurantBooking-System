@@ -15,12 +15,15 @@
 
   <body>
     <header class="topbar">
-      <a class="back" href="Homepage.html">Home Page</a>
+      <a class="back" href="Homepage.php">Home Page</a>
     </header>
 
     <main class="hero">
       <video autoplay muted loop playsinline class="hero-video">
-        <source src="manuka.mov" type="video/mp4" />
+         <source
+          src="videos/manuka.mov"
+          
+        />
       </video>
 
       <div class="overlay"></div>
@@ -47,19 +50,19 @@
         <div class="menu-viewport">
           <div class="menu-container slider-track">
             <div class="menu-card">
-              <img src="petullatTradicionale.jpg" alt="Breakfast" />
+              <img src="images/petullatTradicionale.jpg" alt="Breakfast" />
               <h3>Breakfast</h3>
               <a href="MenuManuka.html" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
-              <img src="paragjella.jpg" alt="Appetizers" />
+              <img src="images/paragjella.jpg" alt="Appetizers" />
               <h3>Appetizers</h3>
               <a href="MenuManuka.html" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
-              <img src="pijet.jpg" alt="Drinks" />
+              <img src="images/pijet.jpg" alt="Drinks" />
               <h3>Drinks</h3>
               <a href="MenuManuka.html" class="menu-link">View Menu</a>
             </div>
@@ -126,7 +129,6 @@
               id="fullName"
               name="fullName"
               placeholder="Shkruani emrin"
-              
             />
 
             <div class="res-row">
@@ -137,7 +139,6 @@
                   id="phone"
                   name="phone"
                   placeholder="Shkruani numrin"
-                  
                 />
               </div>
 
@@ -148,7 +149,6 @@
                   id="email"
                   name="email"
                   placeholder="Shkruani email"
-                  
                 />
               </div>
             </div>
@@ -156,12 +156,12 @@
             <div class="res-row">
               <div class="col">
                 <label for="date">Data</label>
-                <input type="date" id="date" name="date"  />
+                <input type="date" id="date" name="date" />
               </div>
 
               <div class="col">
                 <label for="time">Ora</label>
-                <input type="time" id="time" name="time"  />
+                <input type="time" id="time" name="time" />
               </div>
             </div>
 
@@ -173,7 +173,6 @@
               min="1"
               max="20"
               placeholder="p.sh. 4"
-              
             />
 
             <label for="message">Mesazh / Shënim</label>

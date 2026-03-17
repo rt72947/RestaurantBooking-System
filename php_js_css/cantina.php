@@ -21,8 +21,8 @@
     <main class="hero">
       <video autoplay muted loop playsinline class="hero-video">
         <source
-          src="Cantina gati për sezonin më të bukur✨🎄.mp4"
-          type="video/mp4"
+          src="videos/cantinavideo.mp4"
+          
         />
       </video>
 
@@ -34,7 +34,6 @@
       </div>
     </main>
 
-    <!-- MENU -->
     <section class="menu-section" id="menu">
       <h2>We Offer Top Notch</h2>
 
@@ -51,19 +50,19 @@
         <div class="menu-viewport">
           <div class="menu-container slider-track">
             <div class="menu-card">
-              <img src="breakfastCantina.jpg" alt="Breakfast" />
+              <img src="images/breakfastCantina.jpg" alt="Breakfast" />
               <h3>Breakfast</h3>
               <a href="menuCantina.html" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
-              <img src="cantinaDREKE.jpg" alt="Main Course" />
+              <img src="images/cantinaDREKE.jpg" alt="Main Course" />
               <h3>Main Course</h3>
               <a href="menuCantina.html" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
-              <img src="DrinksCantina.jpg" alt="Drinks" />
+              <img src="images/DrinksCantina.jpg" alt="Drinks" />
               <h3>Drinks</h3>
               <a href="menuCantina.html" class="menu-link">View Menu</a>
             </div>
@@ -74,7 +73,6 @@
       </div>
     </section>
 
-    <!-- CONTACT + RESERVATION -->
     <section class="contact-section">
       <h2>Contact Us</h2>
       <p>
