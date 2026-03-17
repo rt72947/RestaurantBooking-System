@@ -1,3 +1,79 @@
+<?php
+$errors = [];
+$success = "";
+
+$fullName = "";
+$phone = "";
+$email = "";
+$date = "";
+$time = "";
+$guests = "";
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $fullName = trim($_POST["fullName"] ?? "");
+    $phone = trim($_POST["phone"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $date = trim($_POST["date"] ?? "");
+    $time = trim($_POST["time"] ?? "");
+    $guests = trim($_POST["guests"] ?? "");
+    $message = trim($_POST["message"] ?? "");
+
+    if ($fullName === "") {
+        $errors[] = "Emri është i detyrueshëm.";
+    } elseif (strlen($fullName) < 2) {
+        $errors[] = "Emri duhet të ketë të paktën 2 karaktere.";
+    }
+
+    if ($phone === "") {
+        $errors[] = "Telefoni është i detyrueshëm.";
+    } elseif (!preg_match('/^[0-9+\-\s]{6,20}$/', $phone)) {
+        $errors[] = "Numri i telefonit nuk është valid.";
+    }
+
+    if ($email === "") {
+        $errors[] = "Email është i detyrueshëm.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Email nuk është valid.";
+    }
+
+    if ($date === "") {
+        $errors[] = "Data është e detyrueshme.";
+    } elseif (strtotime($date) < strtotime(date("Y-m-d"))) {
+        $errors[] = "Data e rezervimit nuk mund të jetë në të kaluarën.";
+    }
+
+    if ($time === "") {
+        $errors[] = "Ora është e detyrueshme.";
+    }
+
+    if ($guests === "") {
+        $errors[] = "Numri i personave është i detyrueshëm.";
+    } elseif (!filter_var($guests, FILTER_VALIDATE_INT)) {
+        $errors[] = "Numri i personave duhet të jetë numër i plotë.";
+    } elseif ((int)$guests < 1 || (int)$guests > 20) {
+        $errors[] = "Numri i personave duhet të jetë nga 1 deri në 20.";
+    }
+
+    if ($message !== "" && strlen($message) > 500) {
+        $errors[] = "Mesazhi nuk duhet të ketë më shumë se 500 karaktere.";
+    }
+
+    if (empty($errors)) {
+        $success = "Rezervimi u dërgua me sukses!";
+
+        // Këtu më vonë do ta lidhim me databazë (INSERT)
+
+        $fullName = "";
+        $phone = "";
+        $email = "";
+        $date = "";
+        $time = "";
+        $guests = "";
+        $message = "";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="sq">
   <head>
@@ -15,14 +91,14 @@
 
   <body>
     <header class="topbar">
-      <a class="back" href="Homepage.html">Home Page</a>
+      <a class="back" href="Homepage.php">Home Page</a>
     </header>
 
     <main class="hero">
       <video autoplay muted loop playsinline class="hero-video">
         <source
           src="videos/cantinavideo.mp4"
-          
+          type="video/mp4"
         />
       </video>
 
@@ -52,19 +128,19 @@
             <div class="menu-card">
               <img src="images/breakfastCantina.jpg" alt="Breakfast" />
               <h3>Breakfast</h3>
-              <a href="menuCantina.html" class="menu-link">View Menu</a>
+              <a href="menuCantina.php" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
               <img src="images/cantinaDREKE.jpg" alt="Main Course" />
               <h3>Main Course</h3>
-              <a href="menuCantina.html" class="menu-link">View Menu</a>
+              <a href="menuCantina.php" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
               <img src="images/DrinksCantina.jpg" alt="Drinks" />
               <h3>Drinks</h3>
-              <a href="menuCantina.html" class="menu-link">View Menu</a>
+              <a href="menuCantina.php" class="menu-link">View Menu</a>
             </div>
           </div>
         </div>
@@ -97,7 +173,7 @@
         <div class="contact-card">
           <h3>Email</h3>
           <p class="email">
-            <a href="mailto:manukarestaurant2023@gmail.com">
+            <a href="mailto:cantina123@gmail.com">
               manukarestaurant2023@gmail.com
             </a>
           </p>
@@ -121,14 +197,14 @@
             <div class="res-divider"></div>
           </div>
 
-          <form action="#" method="POST" class="res-grid" id="reservationForm">
+          <form action="" method="POST" class="res-grid" id="reservationForm" novalidate>
             <label for="fullName">Emri juaj</label>
             <input
               type="text"
               id="fullName"
               name="fullName"
               placeholder="Shkruani emrin"
-              required
+              value="<?php echo htmlspecialchars($fullName); ?>"
             />
 
             <div class="res-row">
@@ -139,7 +215,7 @@
                   id="phone"
                   name="phone"
                   placeholder="Shkruani numrin"
-                  required
+                  value="<?php echo htmlspecialchars($phone); ?>"
                 />
               </div>
 
@@ -150,7 +226,7 @@
                   id="email"
                   name="email"
                   placeholder="Shkruani email"
-                  required
+                  value="<?php echo htmlspecialchars($email); ?>"
                 />
               </div>
             </div>
@@ -158,12 +234,22 @@
             <div class="res-row">
               <div class="col">
                 <label for="date">Data</label>
-                <input type="date" id="date" name="date" required />
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  value="<?php echo htmlspecialchars($date); ?>"
+                />
               </div>
 
               <div class="col">
                 <label for="time">Ora</label>
-                <input type="time" id="time" name="time" required />
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  value="<?php echo htmlspecialchars($time); ?>"
+                />
               </div>
             </div>
 
@@ -175,7 +261,7 @@
               min="1"
               max="20"
               placeholder="p.sh. 4"
-              required
+              value="<?php echo htmlspecialchars($guests); ?>"
             />
 
             <label for="message">Mesazh / Shënim</label>
@@ -183,10 +269,23 @@
               id="message"
               name="message"
               placeholder="Opsionale"
-            ></textarea>
+            ><?php echo htmlspecialchars($message); ?></textarea>
 
             <button type="submit">Rezervo Tani</button>
-            <p id="formMessage"></p>
+
+            <?php if (!empty($errors)): ?>
+              <div id="formMessage" style="color: red; margin-top: 15px;">
+                <?php foreach ($errors as $error): ?>
+                  <p><?php echo htmlspecialchars($error); ?></p>
+                <?php endforeach; ?>
+              </div>
+            <?php endif; ?>
+
+            <?php if ($success): ?>
+              <div id="formMessage" style="color: green; margin-top: 15px;">
+                <p><?php echo htmlspecialchars($success); ?></p>
+              </div>
+            <?php endif; ?>
           </form>
         </div>
       </div>
@@ -211,12 +310,15 @@
         }
 
         function getMoveAmount() {
+          if (!track) return 0;
           const firstCard = track.querySelector(".menu-card");
+          if (!firstCard) return 0;
           const gap = parseFloat(getComputedStyle(track).gap) || 0;
           return firstCard.offsetWidth + gap;
         }
 
         function nextSlide() {
+          if (!track || !track.firstElementChild) return;
           const firstCard = track.firstElementChild;
           const moveAmount = getMoveAmount();
 
@@ -235,6 +337,7 @@
         }
 
         function prevSlide() {
+          if (!track || !track.lastElementChild) return;
           const lastCard = track.lastElementChild;
           const moveAmount = getMoveAmount();
 
@@ -253,7 +356,10 @@
         if (nextBtn) nextBtn.addEventListener("click", nextSlide);
         if (prevBtn) prevBtn.addEventListener("click", prevSlide);
 
-        let autoSlide = setInterval(nextSlide, 3000);
+        let autoSlide;
+        if (track) {
+          autoSlide = setInterval(nextSlide, 3000);
+        }
 
         if (slider) {
           slider.addEventListener("mouseenter", () => {
@@ -272,8 +378,6 @@
 
         if (form) {
           form.addEventListener("submit", (e) => {
-            e.preventDefault();
-
             const fullName = document.querySelector("#fullName").value.trim();
             const phone = document.querySelector("#phone").value.trim();
             const email = document.querySelector("#email").value.trim();
@@ -282,22 +386,24 @@
             const guests = document.querySelector("#guests").value;
 
             if (!fullName || !phone || !email || !date || !time || !guests) {
-              formMessage.textContent = "Ju lutem plotësoni të gjitha fushat obligative.";
-              formMessage.style.color = "red";
+              e.preventDefault();
+              alert("Ju lutem plotësoni të gjitha fushat obligative.");
               return;
             }
 
             const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
             if (!emailPattern.test(email)) {
-              formMessage.textContent = "Ju lutem shkruani një email valid.";
-              formMessage.style.color = "red";
+              e.preventDefault();
+              alert("Ju lutem shkruani një email valid.");
               return;
             }
 
-            formMessage.textContent = "Rezervimi u dërgua me sukses!";
-            formMessage.style.color = "green";
-
-            form.reset();
+            const guestsNumber = Number(guests);
+            if (guestsNumber < 1 || guestsNumber > 20) {
+              e.preventDefault();
+              alert("Numri i personave duhet të jetë nga 1 deri në 20.");
+              return;
+            }
           });
         }
       });

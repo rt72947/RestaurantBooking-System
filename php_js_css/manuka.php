@@ -1,3 +1,79 @@
+<?php
+$errors = [];
+$success = "";
+
+$fullName = "";
+$phone = "";
+$email = "";
+$date = "";
+$time = "";
+$guests = "";
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $fullName = trim($_POST["fullName"] ?? "");
+    $phone = trim($_POST["phone"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $date = trim($_POST["date"] ?? "");
+    $time = trim($_POST["time"] ?? "");
+    $guests = trim($_POST["guests"] ?? "");
+    $message = trim($_POST["message"] ?? "");
+
+    if ($fullName === "") {
+        $errors[] = "Emri është i detyrueshëm.";
+    } elseif (strlen($fullName) < 2) {
+        $errors[] = "Emri duhet të ketë të paktën 2 karaktere.";
+    }
+
+    if ($phone === "") {
+        $errors[] = "Telefoni është i detyrueshëm.";
+    } elseif (!preg_match('/^[0-9+\-\s]{6,20}$/', $phone)) {
+        $errors[] = "Numri i telefonit nuk është valid.";
+    }
+
+    if ($email === "") {
+        $errors[] = "Email është i detyrueshëm.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Email nuk është valid.";
+    }
+
+    if ($date === "") {
+        $errors[] = "Data është e detyrueshme.";
+    } elseif (strtotime($date) < strtotime(date("Y-m-d"))) {
+        $errors[] = "Data e rezervimit nuk mund të jetë në të kaluarën.";
+    }
+
+    if ($time === "") {
+        $errors[] = "Ora është e detyrueshme.";
+    }
+
+    if ($guests === "") {
+        $errors[] = "Numri i personave është i detyrueshëm.";
+    } elseif (!filter_var($guests, FILTER_VALIDATE_INT)) {
+        $errors[] = "Numri i personave duhet të jetë numër i plotë.";
+    } elseif ((int)$guests < 1 || (int)$guests > 20) {
+        $errors[] = "Numri i personave duhet të jetë nga 1 deri në 20.";
+    }
+
+    if ($message !== "" && strlen($message) > 500) {
+        $errors[] = "Mesazhi nuk duhet të ketë më shumë se 500 karaktere.";
+    }
+
+    if (empty($errors)) {
+        $success = "Rezervimi u dërgua me sukses!";
+
+        // qetu ma vone kena me lidh ne databaz
+
+        $fullName = "";
+        $phone = "";
+        $email = "";
+        $date = "";
+        $time = "";
+        $guests = "";
+        $message = "";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="sq">
   <head>
@@ -20,10 +96,7 @@
 
     <main class="hero">
       <video autoplay muted loop playsinline class="hero-video">
-         <source
-          src="videos/manuka.mov"
-          
-        />
+        <source src="videos/manuka.mov" type="video/mp4" />
       </video>
 
       <div class="overlay"></div>
@@ -34,12 +107,11 @@
       </div>
     </main>
 
-    <!-- MENU -->
     <section class="menu-section" id="menu">
       <h2>We Offer Top Notch</h2>
 
       <p class="menu-subtitle">
-        Eksperienca jonë kulinare kombinon artin e gatimit me elegance moderne.
+        Eksperienca jonë kulinare kombinon artin e gatimit me elegancë moderne.
         Çdo pjatë përgatitet me përkushtim, kreativitet dhe përbërës të zgjedhur
         me kujdes.
       </p>
@@ -52,19 +124,19 @@
             <div class="menu-card">
               <img src="images/petullatTradicionale.jpg" alt="Breakfast" />
               <h3>Breakfast</h3>
-              <a href="MenuManuka.html" class="menu-link">View Menu</a>
+              <a href="MenuManuka.php" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
               <img src="images/paragjella.jpg" alt="Appetizers" />
               <h3>Appetizers</h3>
-              <a href="MenuManuka.html" class="menu-link">View Menu</a>
+              <a href="MenuManuka.php" class="menu-link">View Menu</a>
             </div>
 
             <div class="menu-card">
               <img src="images/pijet.jpg" alt="Drinks" />
               <h3>Drinks</h3>
-              <a href="MenuManuka.html" class="menu-link">View Menu</a>
+              <a href="MenuManuka.php" class="menu-link">View Menu</a>
             </div>
           </div>
         </div>
@@ -73,7 +145,6 @@
       </div>
     </section>
 
-    <!-- CONTACT + RESERVATION -->
     <section class="contact-section">
       <h2>Contact Us</h2>
       <p>
@@ -122,13 +193,14 @@
             <div class="res-divider"></div>
           </div>
 
-         <form action="#" method="POST" class="res-grid" id="reservationForm" novalidate>
+          <form action="" method="POST" class="res-grid" id="reservationForm" novalidate>
             <label for="fullName">Emri juaj</label>
             <input
               type="text"
               id="fullName"
               name="fullName"
               placeholder="Shkruani emrin"
+              value="<?php echo htmlspecialchars($fullName); ?>"
             />
 
             <div class="res-row">
@@ -139,6 +211,7 @@
                   id="phone"
                   name="phone"
                   placeholder="Shkruani numrin"
+                  value="<?php echo htmlspecialchars($phone); ?>"
                 />
               </div>
 
@@ -149,6 +222,7 @@
                   id="email"
                   name="email"
                   placeholder="Shkruani email"
+                  value="<?php echo htmlspecialchars($email); ?>"
                 />
               </div>
             </div>
@@ -156,12 +230,22 @@
             <div class="res-row">
               <div class="col">
                 <label for="date">Data</label>
-                <input type="date" id="date" name="date" />
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  value="<?php echo htmlspecialchars($date); ?>"
+                />
               </div>
 
               <div class="col">
                 <label for="time">Ora</label>
-                <input type="time" id="time" name="time" />
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  value="<?php echo htmlspecialchars($time); ?>"
+                />
               </div>
             </div>
 
@@ -173,6 +257,7 @@
               min="1"
               max="20"
               placeholder="p.sh. 4"
+              value="<?php echo htmlspecialchars($guests); ?>"
             />
 
             <label for="message">Mesazh / Shënim</label>
@@ -180,140 +265,148 @@
               id="message"
               name="message"
               placeholder="Opsionale"
-            ></textarea>
+            ><?php echo htmlspecialchars($message); ?></textarea>
 
             <button type="submit">Rezervo Tani</button>
-            <p id="formMessage"></p>
+
+            <?php if (!empty($errors)): ?>
+              <div id="formMessage" style="color: red; margin-top: 15px;">
+                <?php foreach ($errors as $error): ?>
+                  <p><?php echo htmlspecialchars($error); ?></p>
+                <?php endforeach; ?>
+              </div>
+            <?php endif; ?>
+
+            <?php if ($success): ?>
+              <div id="formMessage" style="color: green; margin-top: 15px;">
+                <p><?php echo htmlspecialchars($success); ?></p>
+              </div>
+            <?php endif; ?>
           </form>
         </div>
       </div>
     </section>
 
     <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const ctaBtn = document.querySelector(".cta");
-    const menuSection = document.querySelector("#menu");
-    const track = document.querySelector(".slider-track");
-    const prevBtn = document.querySelector(".prev");
-    const nextBtn = document.querySelector(".next");
-    const slider = document.querySelector(".menu-slider");
-    const form = document.querySelector("#reservationForm");
-    const formMessage = document.querySelector("#formMessage");
+      document.addEventListener("DOMContentLoaded", () => {
+        const ctaBtn = document.querySelector(".cta");
+        const menuSection = document.querySelector("#menu");
+        const track = document.querySelector(".slider-track");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+        const slider = document.querySelector(".menu-slider");
+        const form = document.querySelector("#reservationForm");
+        const formMessage = document.querySelector("#formMessage");
 
-    if (ctaBtn && menuSection) {
-      ctaBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        menuSection.scrollIntoView({ behavior: "smooth" });
-      });
-    }
+        if (ctaBtn && menuSection) {
+          ctaBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            menuSection.scrollIntoView({ behavior: "smooth" });
+          });
+        }
 
-    function getMoveAmount() {
-      const firstCard = track.querySelector(".menu-card");
-      const gap = parseFloat(getComputedStyle(track).gap) || 0;
-      return firstCard.offsetWidth + gap;
-    }
+        function getMoveAmount() {
+          const firstCard = track.querySelector(".menu-card");
+          const gap = parseFloat(getComputedStyle(track).gap) || 0;
+          return firstCard.offsetWidth + gap;
+        }
 
-    function nextSlide() {
-      const firstCard = track.firstElementChild;
-      const moveAmount = getMoveAmount();
+        function nextSlide() {
+          const firstCard = track.firstElementChild;
+          const moveAmount = getMoveAmount();
 
-      track.style.transition = "transform 0.45s ease";
-      track.style.transform = `translateX(-${moveAmount}px)`;
-
-      track.addEventListener(
-        "transitionend",
-        () => {
-          track.style.transition = "none";
-          track.appendChild(firstCard);
-          track.style.transform = "translateX(0)";
-        },
-        { once: true }
-      );
-    }
-
-    function prevSlide() {
-      const lastCard = track.lastElementChild;
-      const moveAmount = getMoveAmount();
-
-      track.style.transition = "none";
-      track.insertBefore(lastCard, track.firstElementChild);
-      track.style.transform = `translateX(-${moveAmount}px)`;
-
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
           track.style.transition = "transform 0.45s ease";
-          track.style.transform = "translateX(0)";
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          track.addEventListener(
+            "transitionend",
+            () => {
+              track.style.transition = "none";
+              track.appendChild(firstCard);
+              track.style.transform = "translateX(0)";
+            },
+            { once: true }
+          );
+        }
+
+        function prevSlide() {
+          const lastCard = track.lastElementChild;
+          const moveAmount = getMoveAmount();
+
+          track.style.transition = "none";
+          track.insertBefore(lastCard, track.firstElementChild);
+          track.style.transform = `translateX(-${moveAmount}px)`;
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              track.style.transition = "transform 0.45s ease";
+              track.style.transform = "translateX(0)";
+            });
+          });
+        }
+
+        if (nextBtn) nextBtn.addEventListener("click", nextSlide);
+        if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+
+        let autoSlide = setInterval(nextSlide, 3000);
+
+        if (slider) {
+          slider.addEventListener("mouseenter", () => {
+            clearInterval(autoSlide);
+          });
+
+          slider.addEventListener("mouseleave", () => {
+            autoSlide = setInterval(nextSlide, 3000);
+          });
+        }
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight") nextSlide();
+          if (e.key === "ArrowLeft") prevSlide();
         });
-      });
-    }
 
-    if (nextBtn) nextBtn.addEventListener("click", nextSlide);
-    if (prevBtn) prevBtn.addEventListener("click", prevSlide);
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            const fullName = document.getElementById("fullName").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const date = document.getElementById("date").value.trim();
+            const time = document.getElementById("time").value.trim();
+            const guests = document.getElementById("guests").value.trim();
 
-    let autoSlide = setInterval(nextSlide, 3000);
+            if (formMessage) {
+              formMessage.textContent = "";
+            }
 
-    if (slider) {
-      slider.addEventListener("mouseenter", () => {
-        clearInterval(autoSlide);
-      });
+            if (
+              fullName === "" ||
+              phone === "" ||
+              email === "" ||
+              date === "" ||
+              time === "" ||
+              guests === ""
+            ) {
+              e.preventDefault();
+              alert("Ju lutem plotësoni të gjitha fushat obligative.");
+              return;
+            }
 
-      slider.addEventListener("mouseleave", () => {
-        autoSlide = setInterval(nextSlide, 3000);
-      });
-    }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+              e.preventDefault();
+              alert("Ju lutem shkruani një email valid.");
+              return;
+            }
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") nextSlide();
-      if (e.key === "ArrowLeft") prevSlide();
-    });
-
-    if (form) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const fullName = document.getElementById("fullName").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const date = document.getElementById("date").value.trim();
-        const time = document.getElementById("time").value.trim();
-        const guests = document.getElementById("guests").value.trim();
-
-        formMessage.textContent = "";
-        formMessage.style.color = "red";
-
-        if (
-          fullName === "" ||
-          phone === "" ||
-          email === "" ||
-          date === "" ||
-          time === "" ||
-          guests === ""
-        ) {
-          formMessage.textContent =
-            "Ju lutem plotësoni të gjitha fushat obligative.";
-          return;
+            const guestsNumber = Number(guests);
+            if (guestsNumber < 1 || guestsNumber > 20) {
+              e.preventDefault();
+              alert("Numri i personave duhet të jetë nga 1 deri në 20.");
+              return;
+            }
+          });
         }
-
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
-          formMessage.textContent = "Ju lutem shkruani një email valid.";
-          return;
-        }
-
-        const guestsNumber = Number(guests);
-        if (guestsNumber < 1 || guestsNumber > 20) {
-          formMessage.textContent =
-            "Numri i personave duhet të jetë nga 1 deri në 20.";
-          return;
-        }
-
-        formMessage.textContent = "Rezervimi u dërgua me sukses!";
-        formMessage.style.color = "green";
-
-        form.reset();
       });
-    }
-  });
-</script>
+    </script>
   </body>
 </html>
