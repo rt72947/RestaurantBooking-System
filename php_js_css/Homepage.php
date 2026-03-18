@@ -48,7 +48,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="restaurant_listing">
                 <?php foreach($restaurants as $r): ?>
                 <div class="restuarant">
-                    <a href="#"><img src="<?= $r['image'] ?>" alt="<?= $r['name'] ?>" /></a>
+                    <a href="#"><img src="images/<?= $r['image'] ?>" alt="<?= $r['name'] ?>" /></a>
                     <h3><?= $r['name'] ?></h3>
                     <p><i><?= $r['description'] ?></i></p>
                 </div>

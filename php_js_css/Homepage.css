@@ -236,6 +236,7 @@ html {
   }
 }
 
+
 @media (max-width: 520px) {
   .restaurant_listing {
     grid-template-columns: 1fr;

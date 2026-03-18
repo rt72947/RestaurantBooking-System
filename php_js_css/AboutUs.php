@@ -64,7 +64,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="swiper-wrapper">
                     <?php foreach($restaurants as $r): ?>
                         <div class="card-item swiper-slide">
-                            <img src="<?= $r['image'] ?>" class="card-image" alt="<?= $r['name'] ?>">
+                            <img src="images/<?= $r['image'] ?>" class="card-image" alt="<?= $r['name'] ?>">
                             <div class="card-details">
                                 <h3 class="card-title"><?= $r['name'] ?></h3>
                                 <p><i><?= $r['description'] ?></i></p>
