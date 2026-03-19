@@ -20,7 +20,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>DineSpot</title>
-    <link rel="stylesheet" href="Homepage.css" />
+    <link rel="stylesheet" href="Homepage.css?v=999" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body id="home">
@@ -48,8 +48,16 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="restaurant_listing">
                 <?php foreach($restaurants as $r): ?>
                 <div class="restuarant">
-                    <a href="#"><img src="images/<?= $r['image'] ?>" alt="<?= $r['name'] ?>" /></a>
-                    <h3><?= $r['name'] ?></h3>
+                    <a href="<?= $r['page'] ?>">
+                        <img src="images/<?= $r['image'] ?>" alt="<?= $r['name'] ?>" />
+                    </a>
+
+                    <h3>
+                        <a href="<?= $r['page'] ?>">
+                            <?= $r['name'] ?>
+                        </a>
+                    </h3>
+
                     <p><i><?= $r['description'] ?></i></p>
                 </div>
                 <?php endforeach; ?>
