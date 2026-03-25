@@ -179,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             setError(password, "Password është i detyrueshëm");
             valid = false;
           } else if (passwordValue.length < 6) {
-            setError(password, "Password duhet të ketë minimum 6 karaktere");
+            setError(password, "Password duhet të ketë minimum 8 karaktere");
             valid = false;
           } else {
             setSuccess(password);
