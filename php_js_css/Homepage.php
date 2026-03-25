@@ -22,7 +22,6 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $isAdmin = isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 $userName = $_SESSION['user_name'] ?? 'User';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,15 +40,15 @@ $userName = $_SESSION['user_name'] ?? 'User';
                 <a href="ContactUs.php"><b>Contact Us</b></a>
 
                 <?php if ($isAdmin): ?>
-                    <a href="dashboard.php"><b>Dashboard</b></a>
+                    <a href="Dashboard.php"><b>Dashboard</b></a>
                 <?php endif; ?>
             </div>
 
             <div style="display:flex; align-items:center; gap:12px;">
                 <span style="color:white; font-weight:500;">
-                    Welcome, <?php echo htmlspecialchars($userName); ?>
+                    Welcome, <?php echo htmlspecialchars((string)$userName, ENT_QUOTES, 'UTF-8'); ?>
                 </span>
-                <a href="LogOut.php"><button class="button">Log Out</button></a>
+                <a href="LogOut.php"><button class="button" type="button">Log Out</button></a>
             </div>
         </nav>
     </header>
@@ -66,19 +65,25 @@ $userName = $_SESSION['user_name'] ?? 'User';
 
             <div class="restaurant_listing">
                 <?php foreach ($restaurants as $r): ?>
-                <div class="restuarant">
-                    <a href="<?php echo htmlspecialchars($r['page']); ?>">
-                        <img src="images/<?php echo htmlspecialchars($r['image']); ?>" alt="<?php echo htmlspecialchars($r['name']); ?>" />
-                    </a>
-
-                    <h3>
-                        <a href="<?php echo htmlspecialchars($r['page']); ?>">
-                            <?php echo htmlspecialchars($r['name']); ?>
+                    <?php
+                        $page = htmlspecialchars((string)($r['page'] ?? '#'), ENT_QUOTES, 'UTF-8');
+                        $image = htmlspecialchars((string)($r['image'] ?? 'default.jpg'), ENT_QUOTES, 'UTF-8');
+                        $name = htmlspecialchars((string)($r['name'] ?? 'Restaurant'), ENT_QUOTES, 'UTF-8');
+                        $description = htmlspecialchars((string)($r['description'] ?? ''), ENT_QUOTES, 'UTF-8');
+                    ?>
+                    <div class="restuarant">
+                        <a href="<?php echo $page; ?>">
+                            <img src="images/<?php echo $image; ?>" alt="<?php echo $name; ?>" />
                         </a>
-                    </h3>
 
-                    <p><i><?php echo htmlspecialchars($r['description']); ?></i></p>
-                </div>
+                        <h3>
+                            <a href="<?php echo $page; ?>">
+                                <?php echo $name; ?>
+                            </a>
+                        </h3>
+
+                        <p><i><?php echo $description; ?></i></p>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -92,7 +97,7 @@ $userName = $_SESSION['user_name'] ?? 'User';
                     Dine Spot sjell restorantet më të mira të Ferizajt në një vend.
                     Zbuloni shije të shkëlqyera dhe momente të veçanta çdo ditë.
                 </p>
-                <a href="AboutUs.php"><button class="about">Learn more</button></a>
+                <a href="AboutUs.php"><button class="about" type="button">Learn more</button></a>
             </div>
         </div>
 
@@ -103,7 +108,7 @@ $userName = $_SESSION['user_name'] ?? 'User';
                     Keni pyetje, dëshironi të rezervoni një tavolinë apo të organizoni një event?
                     Na shkruani dhe do ju kontaktojmë sa më shpejt.
                 </p>
-                <a href="ContactUs.php"><button class="contact">Contact Us</button></a>
+                <a href="ContactUs.php"><button class="contact" type="button">Contact Us</button></a>
             </div>
         </div>
     </footer>
