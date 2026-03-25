@@ -1,7 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id'])){
-    header("Location: LoginPage.php");
+
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Expires: 0");
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: LogIn.php");
     exit();
 }
 
@@ -12,6 +18,9 @@ $conn = $db->getConnection();
 $stmt = $conn->prepare("SELECT * FROM restaurants ORDER BY id ASC");
 $stmt->execute();
 $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$isAdmin = isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
+$userName = $_SESSION['user_name'] ?? 'User';
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +39,18 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="#home"><b>Home</b></a>
                 <a href="#about"><b>About Us</b></a>
                 <a href="ContactUs.php"><b>Contact Us</b></a>
+
+                <?php if ($isAdmin): ?>
+                    <a href="dashboard.php"><b>Dashboard</b></a>
+                <?php endif; ?>
             </div>
-            <a href="LogOut.php"><button class="button">Log Out</button></a>
+
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="color:white; font-weight:500;">
+                    Welcome, <?php echo htmlspecialchars($userName); ?>
+                </span>
+                <a href="LogOut.php"><button class="button">Log Out</button></a>
+            </div>
         </nav>
     </header>
 
@@ -46,19 +65,19 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="restaurant_listing">
-                <?php foreach($restaurants as $r): ?>
+                <?php foreach ($restaurants as $r): ?>
                 <div class="restuarant">
-                    <a href="<?= $r['page'] ?>">
-                        <img src="images/<?= $r['image'] ?>" alt="<?= $r['name'] ?>" />
+                    <a href="<?php echo htmlspecialchars($r['page']); ?>">
+                        <img src="images/<?php echo htmlspecialchars($r['image']); ?>" alt="<?php echo htmlspecialchars($r['name']); ?>" />
                     </a>
 
                     <h3>
-                        <a href="<?= $r['page'] ?>">
-                            <?= $r['name'] ?>
+                        <a href="<?php echo htmlspecialchars($r['page']); ?>">
+                            <?php echo htmlspecialchars($r['name']); ?>
                         </a>
                     </h3>
 
-                    <p><i><?= $r['description'] ?></i></p>
+                    <p><i><?php echo htmlspecialchars($r['description']); ?></i></p>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -69,7 +88,8 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="footer-left">
             <h2>About us</h2>
             <div class="about-row" id="about">
-                <p>Dine Spot sjell restorantet më të mira të Ferizajt në një vend.
+                <p>
+                    Dine Spot sjell restorantet më të mira të Ferizajt në një vend.
                     Zbuloni shije të shkëlqyera dhe momente të veçanta çdo ditë.
                 </p>
                 <a href="AboutUs.php"><button class="about">Learn more</button></a>
@@ -80,7 +100,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h2>Get in Touch</h2>
             <div class="contact-row" id="contact">
                 <p>
-                    Keni pyetje, dëshironi të rezervoni një tavolinë apo të organizoni një event?  
+                    Keni pyetje, dëshironi të rezervoni një tavolinë apo të organizoni një event?
                     Na shkruani dhe do ju kontaktojmë sa më shpejt.
                 </p>
                 <a href="ContactUs.php"><button class="contact">Contact Us</button></a>

@@ -40,13 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['user_email'] = $user['email'];
                 $_SESSION['user_role'] = $user['role'];
 
-                if ($user['role'] === 'admin') {
-                    header("Location: admin/dashboard.php");
-                    exit;
-                } else {
-                    header("Location: Homepage.php");
-                    exit;
-                }
+                header("Location: Homepage.php");
+                exit;
             } else {
                 $errors['general'] = "Email ose password gabim.";
             }
@@ -175,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             setError(password, "Password është i detyrueshëm");
             valid = false;
           } else if (passwordValue.length < 6) {
-            setError(password, "Password duhet të ketë minimum 8 karaktere");
+            setError(password, "Password duhet të ketë minimum 6 karaktere");
             valid = false;
           } else {
             setSuccess(password);
