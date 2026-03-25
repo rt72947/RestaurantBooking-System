@@ -3,6 +3,11 @@ session_start();
 include 'Database.php';
 include_once 'users.php';
 
+if(!isset($_SESSION['user_id'])){
+    header("Location: login.php");
+    exit();
+}
+
 $db = new Database();
 $conn = $db->getConnection();
 $userModel = new User($conn);

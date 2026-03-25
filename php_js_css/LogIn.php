@@ -95,10 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </head>
 
   <body>
-    <header class="topbar">
-      <a class="back" href="Homepage.php">Home Page</a>
-    </header>
-
     <main class="auth">
       <div class="auth-card">
         <h2>Log In</h2>
