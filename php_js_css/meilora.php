@@ -68,7 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($errors)) {
         try {
-            // Kontrollo a ekziston restoranti 6
             $checkStmt = $conn->prepare("SELECT id, name FROM restaurants WHERE id = :id");
             $checkStmt->execute([':id' => $restaurantId]);
             $restaurant = $checkStmt->fetch(PDO::FETCH_ASSOC);
@@ -94,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     ':message' => $message
                 ]);
 
-                $success = "Rezervimi u ruajt me sukses në databazë! ID: " . $conn->lastInsertId();
+                $success = "Rezervimi u ruajt me sukses në databazë!";
 
                 $fullName = "";
                 $phone = "";
@@ -219,7 +218,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
       </div>
 
-      <div class="reservation-wrap">
+      <div class="reservation-wrap" id="reservation">
         <div class="reservation-form">
           <div class="res-head">
             <h3>Rezervo Tavolinën</h3>
@@ -227,7 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="res-divider"></div>
           </div>
 
-          <form action="" method="POST" class="res-grid" id="reservationForm" novalidate>
+          <form action="#reservation" method="POST" class="res-grid" id="reservationForm" novalidate>
             <label for="fullName">Emri juaj</label>
             <input
               type="text"
@@ -329,8 +328,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         const prevBtn = document.querySelector(".prev");
         const nextBtn = document.querySelector(".next");
         const slider = document.querySelector(".menu-slider");
-        const form = document.querySelector("#reservationForm");
-        const formMessage = document.querySelector("#formMessage");
 
         if (ctaBtn && menuSection) {
           ctaBtn.addEventListener("click", (e) => {
@@ -405,41 +402,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           if (e.key === "ArrowRight") nextSlide();
           if (e.key === "ArrowLeft") prevSlide();
         });
-
-        if (form) {
-          form.addEventListener("submit", (e) => {
-            const fullName = document.querySelector("#fullName").value.trim();
-            const phone = document.querySelector("#phone").value.trim();
-            const email = document.querySelector("#email").value.trim();
-            const date = document.querySelector("#date").value;
-            const time = document.querySelector("#time").value;
-            const guests = document.querySelector("#guests").value;
-
-            if (formMessage) {
-              formMessage.textContent = "";
-            }
-
-            if (!fullName || !phone || !email || !date || !time || !guests) {
-              e.preventDefault();
-              alert("Ju lutem plotësoni të gjitha fushat obligative.");
-              return;
-            }
-
-            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
-            if (!emailPattern.test(email)) {
-              e.preventDefault();
-              alert("Ju lutem shkruani një email valid.");
-              return;
-            }
-
-            const guestsNumber = Number(guests);
-            if (guestsNumber < 1 || guestsNumber > 20) {
-              e.preventDefault();
-              alert("Numri i personave duhet të jetë nga 1 deri në 20.");
-              return;
-            }
-          });
-        }
       });
     </script>
   </body>

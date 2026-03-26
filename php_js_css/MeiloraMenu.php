@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="top">
-      <a class="back" href="meilora.html">Back</a>
+      <a class="back" href="meilora.php">Back</a>
       <div class="brand">Meilora Restaurant</div>
     </div>
 

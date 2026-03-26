@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="top">
-      <a class="back" href="cantina.html">Back</a>
+      <a class="back" href="cantina.php">Back</a>
       <div class="brand">Cantina Restaurant</div>
     </div>
 

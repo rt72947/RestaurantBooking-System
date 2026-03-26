@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="top">
-      <a class="back" href="manuka.html">Back</a>
+      <a class="back" href="manuka.php">Back</a>
       <div class="brand">Manuka Restaurant</div>
     </div>
 

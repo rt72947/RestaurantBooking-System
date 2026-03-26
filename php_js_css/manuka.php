@@ -212,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
       </div>
 
-      <div class="reservation-wrap">
+      <div class="reservation-wrap" id="reservation">
         <div class="reservation-form">
           <div class="res-head">
             <h3>Rezervo Tavolinën</h3>
@@ -220,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="res-divider"></div>
           </div>
 
-          <form action="" method="POST" class="res-grid" id="reservationForm" novalidate>
+          <form action="#reservation" method="POST" class="res-grid" id="reservationForm" novalidate>
             <label for="fullName">Emri juaj</label>
             <input
               type="text"
@@ -322,8 +322,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         const prevBtn = document.querySelector(".prev");
         const nextBtn = document.querySelector(".next");
         const slider = document.querySelector(".menu-slider");
-        const form = document.querySelector("#reservationForm");
-        const formMessage = document.querySelector("#formMessage");
 
         if (ctaBtn && menuSection) {
           ctaBtn.addEventListener("click", (e) => {
@@ -333,12 +331,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         function getMoveAmount() {
+          if (!track) return 0;
           const firstCard = track.querySelector(".menu-card");
+          if (!firstCard) return 0;
           const gap = parseFloat(getComputedStyle(track).gap) || 0;
           return firstCard.offsetWidth + gap;
         }
 
         function nextSlide() {
+          if (!track || !track.firstElementChild) return;
           const firstCard = track.firstElementChild;
           const moveAmount = getMoveAmount();
 
@@ -357,6 +358,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         function prevSlide() {
+          if (!track || !track.lastElementChild) return;
           const lastCard = track.lastElementChild;
           const moveAmount = getMoveAmount();
 
@@ -375,7 +377,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (nextBtn) nextBtn.addEventListener("click", nextSlide);
         if (prevBtn) prevBtn.addEventListener("click", prevSlide);
 
-        let autoSlide = setInterval(nextSlide, 3000);
+        let autoSlide;
+        if (track) {
+          autoSlide = setInterval(nextSlide, 3000);
+        }
 
         if (slider) {
           slider.addEventListener("mouseenter", () => {
@@ -391,48 +396,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           if (e.key === "ArrowRight") nextSlide();
           if (e.key === "ArrowLeft") prevSlide();
         });
-
-        if (form) {
-          form.addEventListener("submit", function (e) {
-            const fullName = document.getElementById("fullName").value.trim();
-            const phone = document.getElementById("phone").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const date = document.getElementById("date").value.trim();
-            const time = document.getElementById("time").value.trim();
-            const guests = document.getElementById("guests").value.trim();
-
-            if (formMessage) {
-              formMessage.textContent = "";
-            }
-
-            if (
-              fullName === "" ||
-              phone === "" ||
-              email === "" ||
-              date === "" ||
-              time === "" ||
-              guests === ""
-            ) {
-              e.preventDefault();
-              alert("Ju lutem plotësoni të gjitha fushat obligative.");
-              return;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-              e.preventDefault();
-              alert("Ju lutem shkruani një email valid.");
-              return;
-            }
-
-            const guestsNumber = Number(guests);
-            if (guestsNumber < 1 || guestsNumber > 20) {
-              e.preventDefault();
-              alert("Numri i personave duhet të jetë nga 1 deri në 20.");
-              return;
-            }
-          });
-        }
       });
     </script>
   </body>

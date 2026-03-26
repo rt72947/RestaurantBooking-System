@@ -216,106 +216,106 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
       </div>
 
-      <div class="reservation-wrap">
-        <div class="reservation-form">
-          <div class="res-head">
-            <h3>Rezervo Tavolinën</h3>
-            <p>Plotëso të dhënat dhe ne të konfirmojmë sa më shpejt.</p>
-            <div class="res-divider"></div>
-          </div>
+      <div class="reservation-wrap" id="reservation">
+  <div class="reservation-form">
+    <div class="res-head">
+      <h3>Rezervo Tavolinën</h3>
+      <p>Plotëso të dhënat dhe ne të konfirmojmë sa më shpejt.</p>
+      <div class="res-divider"></div>
+    </div>
 
-          <form action="" method="POST" class="res-grid" id="reservationForm" novalidate>
-            <label for="fullName">Emri juaj</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="Shkruani emrin"
-              value="<?php echo htmlspecialchars($fullName); ?>"
-            />
+    <form action="#reservation" method="POST" class="res-grid" id="reservationForm" novalidate>
+      <label for="fullName">Emri juaj</label>
+      <input
+        type="text"
+        id="fullName"
+        name="fullName"
+        placeholder="Shkruani emrin"
+        value="<?php echo htmlspecialchars($fullName); ?>"
+      />
 
-            <div class="res-row">
-              <div class="col">
-                <label for="phone">Telefoni</label>
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  placeholder="Shkruani numrin"
-                  value="<?php echo htmlspecialchars($phone); ?>"
-                />
-              </div>
+      <div class="res-row">
+        <div class="col">
+          <label for="phone">Telefoni</label>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Shkruani numrin"
+            value="<?php echo htmlspecialchars($phone); ?>"
+          />
+        </div>
 
-              <div class="col">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Shkruani email"
-                  value="<?php echo htmlspecialchars($email); ?>"
-                />
-              </div>
-            </div>
-
-            <div class="res-row">
-              <div class="col">
-                <label for="date">Data</label>
-                <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  value="<?php echo htmlspecialchars($date); ?>"
-                />
-              </div>
-
-              <div class="col">
-                <label for="time">Ora</label>
-                <input
-                  type="time"
-                  id="time"
-                  name="time"
-                  value="<?php echo htmlspecialchars($time); ?>"
-                />
-              </div>
-            </div>
-
-            <label for="guests">Numri i personave</label>
-            <input
-              type="number"
-              id="guests"
-              name="guests"
-              min="1"
-              max="20"
-              placeholder="p.sh. 4"
-              value="<?php echo htmlspecialchars($guests); ?>"
-            />
-
-            <label for="message">Mesazh / Shënim</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Opsionale"
-            ><?php echo htmlspecialchars($message); ?></textarea>
-
-            <button type="submit">Rezervo Tani</button>
-
-            <?php if (!empty($errors)): ?>
-              <div id="formMessage" style="color: red; margin-top: 15px;">
-                <?php foreach ($errors as $error): ?>
-                  <p><?php echo htmlspecialchars($error); ?></p>
-                <?php endforeach; ?>
-              </div>
-            <?php endif; ?>
-
-            <?php if ($success): ?>
-              <div id="formMessage" style="color: green; margin-top: 15px;">
-                <p><?php echo htmlspecialchars($success); ?></p>
-              </div>
-            <?php endif; ?>
-          </form>
+        <div class="col">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Shkruani email"
+            value="<?php echo htmlspecialchars($email); ?>"
+          />
         </div>
       </div>
+
+      <div class="res-row">
+        <div class="col">
+          <label for="date">Data</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            value="<?php echo htmlspecialchars($date); ?>"
+          />
+        </div>
+
+        <div class="col">
+          <label for="time">Ora</label>
+          <input
+            type="time"
+            id="time"
+            name="time"
+            value="<?php echo htmlspecialchars($time); ?>"
+          />
+        </div>
+      </div>
+
+      <label for="guests">Numri i personave</label>
+      <input
+        type="number"
+        id="guests"
+        name="guests"
+        min="1"
+        max="20"
+        placeholder="p.sh. 4"
+        value="<?php echo htmlspecialchars($guests); ?>"
+      />
+
+      <label for="message">Mesazh / Shënim</label>
+      <textarea
+        id="message"
+        name="message"
+        placeholder="Opsionale"
+      ><?php echo htmlspecialchars($message); ?></textarea>
+
+      <button type="submit">Rezervo Tani</button>
+
+      <?php if (!empty($errors)): ?>
+        <div id="formMessage" style="color: red; margin-top: 15px;">
+          <?php foreach ($errors as $error): ?>
+            <p><?php echo htmlspecialchars($error); ?></p>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($success): ?>
+        <div id="formMessage" style="color: green; margin-top: 15px;">
+          <p><?php echo htmlspecialchars($success); ?></p>
+        </div>
+      <?php endif; ?>
+    </form>
+  </div>
+</div>
     </section>
 
     <script>
@@ -326,8 +326,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         const prevBtn = document.querySelector(".prev");
         const nextBtn = document.querySelector(".next");
         const slider = document.querySelector(".menu-slider");
-        const form = document.querySelector("#reservationForm");
-        const formMessage = document.querySelector("#formMessage");
 
         if (ctaBtn && menuSection) {
           ctaBtn.addEventListener("click", (e) => {
@@ -402,37 +400,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           if (e.key === "ArrowRight") nextSlide();
           if (e.key === "ArrowLeft") prevSlide();
         });
-
-        if (form) {
-          form.addEventListener("submit", (e) => {
-            const fullName = document.querySelector("#fullName").value.trim();
-            const phone = document.querySelector("#phone").value.trim();
-            const email = document.querySelector("#email").value.trim();
-            const date = document.querySelector("#date").value;
-            const time = document.querySelector("#time").value;
-            const guests = document.querySelector("#guests").value;
-
-            if (!fullName || !phone || !email || !date || !time || !guests) {
-              e.preventDefault();
-              alert("Ju lutem plotësoni të gjitha fushat obligative.");
-              return;
-            }
-
-            const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
-            if (!emailPattern.test(email)) {
-              e.preventDefault();
-              alert("Ju lutem shkruani një email valid.");
-              return;
-            }
-
-            const guestsNumber = Number(guests);
-            if (guestsNumber < 1 || guestsNumber > 20) {
-              e.preventDefault();
-              alert("Numri i personave duhet të jetë nga 1 deri në 20.");
-              return;
-            }
-          });
-        }
       });
     </script>
   </body>
