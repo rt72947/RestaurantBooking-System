@@ -30,10 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action == 'create') {
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $password = $_POST['password'];
-        $confirm = $_POST['confirmPassword'];
+        $name = trim($_POST['name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirm = $_POST['confirmPassword'] ?? '';
 
         if (empty($name) || empty($email) || empty($password) || empty($confirm)) {
             $error = "Plotëso të gjitha fushat!";
@@ -51,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($action == 'update') {
-        $id = $_POST['id'];
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
+        $id = $_POST['id'] ?? '';
+        $name = trim($_POST['name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
         $password = !empty($_POST['password']) ? $_POST['password'] : null;
-        $role = $_POST['role'];
+        $role = $_POST['role'] ?? 'user';
 
         if ($userModel->updateUser($id, $name, $email, $password, $role)) {
             $success = "User u përditësua me sukses!";
@@ -78,7 +78,7 @@ if (isset($_GET['delete_msg'])) {
     $id = (int)$_GET['delete_msg'];
     $stmt = $conn->prepare("DELETE FROM contacts WHERE id = :id");
     if ($stmt->execute([':id' => $id])) {
-        header("Location: dashboard.php");
+        header("Location: Dashboard.php");
         exit;
     } else {
         $error = "Gabim gjatë fshirjes së mesazhit!";
@@ -101,6 +101,8 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+
+<a href="RestaurantsAdmin.php"><button type="button" class="edit-btn">Restaurants</button></a>
 
 <div class="dashboard">
 
@@ -131,23 +133,23 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <?php foreach ($users as $u): ?>
             <tr>
-                <td><?= $u['id'] ?></td>
-                <td><?= htmlspecialchars($u['name']) ?></td>
-                <td><?= htmlspecialchars($u['email']) ?></td>
-                <td><?= htmlspecialchars($u['role']) ?></td>
-                <td><?= htmlspecialchars($u['created_at']) ?></td>
+                <td><?= (int)($u['id'] ?? 0) ?></td>
+                <td><?= htmlspecialchars($u['name'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($u['email'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($u['role'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($u['created_at'] ?? '-') ?></td>
                 <td>
                     <button class="edit-btn"
                         onclick="openEditModal(
-                            <?= (int)$u['id'] ?>,
-                            '<?= htmlspecialchars($u['name'], ENT_QUOTES) ?>',
-                            '<?= htmlspecialchars($u['email'], ENT_QUOTES) ?>',
-                            '<?= htmlspecialchars($u['role'], ENT_QUOTES) ?>'
+                            <?= (int)($u['id'] ?? 0) ?>,
+                            '<?= htmlspecialchars($u['name'] ?? '', ENT_QUOTES) ?>',
+                            '<?= htmlspecialchars($u['email'] ?? '', ENT_QUOTES) ?>',
+                            '<?= htmlspecialchars($u['role'] ?? 'user', ENT_QUOTES) ?>'
                         )">
                         Edit
                     </button>
 
-                    <a href="?delete=<?= $u['id'] ?>" onclick="return confirm('Jeni i sigurt?')">
+                    <a href="?delete=<?= (int)($u['id'] ?? 0) ?>" onclick="return confirm('Jeni i sigurt?')">
                         <button class="delete-btn" type="button">Delete</button>
                     </a>
                 </td>
@@ -171,13 +173,13 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <?php foreach ($contacts as $c): ?>
             <tr>
-                <td><?= $c['id'] ?></td>
-                <td><?= htmlspecialchars($c['name']) ?></td>
-                <td><?= htmlspecialchars($c['email']) ?></td>
-                <td><?= htmlspecialchars($c['message']) ?></td>
-                <td><?= htmlspecialchars($c['created_at']) ?></td>
+                <td><?= (int)($c['id'] ?? 0) ?></td>
+                <td><?= htmlspecialchars($c['name'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($c['email'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($c['message'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($c['created_at'] ?? '-') ?></td>
                 <td>
-                    <a href="?delete_msg=<?= $c['id'] ?>" onclick="return confirm('Fshi mesazhin?')">
+                    <a href="?delete_msg=<?= (int)($c['id'] ?? 0) ?>" onclick="return confirm('Fshi mesazhin?')">
                         <button class="delete-btn" type="button">Delete</button>
                     </a>
                 </td>
