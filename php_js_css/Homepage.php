@@ -15,7 +15,11 @@ include 'Database.php';
 $db = new Database();
 $conn = $db->getConnection();
 
-$stmt = $conn->prepare("SELECT * FROM restaurants ORDER BY id ASC");
+$stmt = $conn->prepare("
+    SELECT * FROM restaurants 
+    WHERE name IN ('MANUKA', 'CANTINA DE JUAN', 'MEILORA RESTAURANT')
+    ORDER BY id ASC
+");
 $stmt->execute();
 $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
