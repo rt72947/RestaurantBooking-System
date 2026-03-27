@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include_once 'Database.php';
 
 if(!isset($_SESSION['user_id'])){
@@ -94,7 +96,7 @@ $restaurants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     Keni pyetje, dëshironi të rezervoni një tavolinë apo të organizoni një event?  
                     Na shkruani dhe do ju kontaktojmë sa më shpejt.
                 </p>
-                <a href="ContactUs.php"><button class="contact">Contact Us</button></a>
+                <a href="ContactUs.php"><button class="contact" type="button">Contact Us</button></a>
             </div>
         </div>
     </footer>

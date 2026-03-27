@@ -5,7 +5,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* BACKGROUND SI CONTACT PAGE */
 body {
   min-height: 100vh;
   color: #fff;
@@ -19,14 +18,12 @@ body {
   padding: 20px;
 }
 
-/* TITULLI */
 h2 {
   text-align: center;
   color: #c9a86a;
   margin: 20px 0;
 }
 
-/* MESAZHE */
 .error {
   text-align: center;
   color: red;
@@ -39,7 +36,6 @@ h2 {
   margin-bottom: 10px;
 }
 
-/* BUTTON CREATE */
 .create-btn {
   display: block;
   margin: 10px auto 20px;
@@ -57,14 +53,12 @@ h2 {
   background: #fff;
 }
 
-/* 3 SEKSIONE HORIZONTAL */
 .dashboard {
   display: flex;
   gap: 20px;
   align-items: flex-start;
 }
 
-/* PANELI (GLASS STYLE) */
 .panel {
   flex: 1;
   background: rgba(20, 20, 20, 0.75);
@@ -75,13 +69,11 @@ h2 {
   transition: 0.3s;
 }
 
-/* HOVER EFFECT */
 .panel:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(201, 168, 106, 0.2);
 }
 
-/* TABLE */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -101,7 +93,6 @@ td {
   color: #fff;
 }
 
-/* BUTTONS */
 .edit-btn {
   background: #c9a86a;
   color: #111;
@@ -121,7 +112,6 @@ td {
   cursor: pointer;
 }
 
-/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -165,7 +155,6 @@ td {
   font-weight: bold;
 }
 
-/* CLOSE */
 .close {
   float: right;
   font-size: 22px;
@@ -173,7 +162,6 @@ td {
   color: #fff;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .dashboard {
     flex-direction: column;
