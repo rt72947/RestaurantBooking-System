@@ -26,6 +26,9 @@ $userModel = new User($conn);
 $error = '';
 $success = '';
 
+/* =========================
+   USERS CRUD
+========================= */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'] ?? '';
 
@@ -63,8 +66,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Gabim gjatë përditësimit!";
         }
     }
+
+    /* =========================
+       RESTAURANTS CREATE
+    ========================= */
+    if (isset($_POST['create_restaurant'])) {
+        $restaurantName = trim($_POST['restaurant_name'] ?? '');
+        $restaurantDescription = trim($_POST['restaurant_description'] ?? '');
+        $restaurantImage = trim($_POST['restaurant_image'] ?? '');
+
+        if ($restaurantName === "" || $restaurantDescription === "" || $restaurantImage === "") {
+            $error = "Plotëso të gjitha fushat për restaurant!";
+        } else {
+            $stmt = $conn->prepare("
+                INSERT INTO restaurants (name, description, image)
+                VALUES (:name, :description, :image)
+            ");
+
+            if ($stmt->execute([
+                ':name' => $restaurantName,
+                ':description' => $restaurantDescription,
+                ':image' => $restaurantImage
+            ])) {
+                header("Location: Dashboard.php?restaurant_created=1");
+                exit;
+            } else {
+                $error = "Gabim gjatë shtimit të restaurant!";
+            }
+        }
+    }
+
+    /* =========================
+       RESTAURANTS UPDATE
+    ========================= */
+    if (isset($_POST['update_restaurant'])) {
+        $restaurantId = (int)($_POST['restaurant_id'] ?? 0);
+        $restaurantName = trim($_POST['restaurant_name'] ?? '');
+        $restaurantDescription = trim($_POST['restaurant_description'] ?? '');
+        $restaurantImage = trim($_POST['restaurant_image'] ?? '');
+
+        if ($restaurantId <= 0 || $restaurantName === "" || $restaurantDescription === "" || $restaurantImage === "") {
+            $error = "Plotëso të gjitha fushat për përditësim të restaurant!";
+        } else {
+            $stmt = $conn->prepare("
+                UPDATE restaurants
+                SET name = :name,
+                    description = :description,
+                    image = :image
+                WHERE id = :id
+            ");
+
+            if ($stmt->execute([
+                ':name' => $restaurantName,
+                ':description' => $restaurantDescription,
+                ':image' => $restaurantImage,
+                ':id' => $restaurantId
+            ])) {
+                header("Location: Dashboard.php?restaurant_updated=1");
+                exit;
+            } else {
+                $error = "Gabim gjatë përditësimit të restaurant!";
+            }
+        }
+    }
 }
 
+/* =========================
+   USERS DELETE
+========================= */
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     if ($userModel->deleteUser($id)) {
@@ -74,6 +143,9 @@ if (isset($_GET['delete'])) {
     }
 }
 
+/* =========================
+   CONTACT DELETE
+========================= */
 if (isset($_GET['delete_msg'])) {
     $id = (int)$_GET['delete_msg'];
     $stmt = $conn->prepare("DELETE FROM contacts WHERE id = :id");
@@ -85,11 +157,64 @@ if (isset($_GET['delete_msg'])) {
     }
 }
 
+/* =========================
+   RESTAURANTS DELETE
+========================= */
+if (isset($_GET['delete_restaurant'])) {
+    $id = (int)$_GET['delete_restaurant'];
+    $stmt = $conn->prepare("DELETE FROM restaurants WHERE id = :id");
+
+    if ($stmt->execute([':id' => $id])) {
+        header("Location: Dashboard.php?restaurant_deleted=1");
+        exit;
+    } else {
+        $error = "Gabim gjatë fshirjes së restaurant!";
+    }
+}
+
+/* =========================
+   RESTAURANTS EDIT FETCH
+========================= */
+$editRestaurant = null;
+
+if (isset($_GET['edit_restaurant'])) {
+    $id = (int)$_GET['edit_restaurant'];
+    $stmt = $conn->prepare("SELECT * FROM restaurants WHERE id = :id LIMIT 1");
+    $stmt->execute([':id' => $id]);
+    $editRestaurant = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$editRestaurant) {
+        $error = "Restaurant nuk u gjet!";
+    }
+}
+
+/* =========================
+   SUCCESS MESSAGES
+========================= */
+if (isset($_GET['restaurant_created'])) {
+    $success = "Restaurant u shtua me sukses!";
+}
+
+if (isset($_GET['restaurant_updated'])) {
+    $success = "Restaurant u përditësua me sukses!";
+}
+
+if (isset($_GET['restaurant_deleted'])) {
+    $success = "Restaurant u fshi me sukses!";
+}
+
+/* =========================
+   READ DATA
+========================= */
 $users = $userModel->getAllUsers();
 
 $stmt = $conn->prepare("SELECT * FROM contacts ORDER BY created_at DESC");
 $stmt->execute();
 $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmtRestaurants = $conn->prepare("SELECT * FROM restaurants ORDER BY id DESC");
+$stmtRestaurants->execute();
+$restaurants = $stmtRestaurants->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -102,20 +227,18 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<a href="RestaurantsAdmin.php"><button type="button" class="edit-btn">Restaurants</button></a>
+<?php if ($error): ?>
+    <p class="error"><?= htmlspecialchars($error) ?></p>
+<?php endif; ?>
+
+<?php if ($success): ?>
+    <p class="success"><?= htmlspecialchars($success) ?></p>
+<?php endif; ?>
 
 <div class="dashboard">
 
     <div class="panel">
         <h2>Users Dashboard</h2>
-
-        <?php if ($error): ?>
-            <p class="error"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
-
-        <?php if ($success): ?>
-            <p class="success"><?= htmlspecialchars($success) ?></p>
-        <?php endif; ?>
 
         <button class="create-btn" onclick="openModal('createModal')">
             Create New User
@@ -182,6 +305,101 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a href="?delete_msg=<?= (int)($c['id'] ?? 0) ?>" onclick="return confirm('Fshi mesazhin?')">
                         <button class="delete-btn" type="button">Delete</button>
                     </a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <div class="panel">
+        <?php if ($editRestaurant): ?>
+            <h2>Edit Restaurant</h2>
+
+            <form method="POST">
+                <input type="hidden" name="restaurant_id" value="<?= (int)($editRestaurant['id'] ?? 0) ?>">
+
+                <input
+                    type="text"
+                    name="restaurant_name"
+                    placeholder="Emri i restaurant"
+                    value="<?= htmlspecialchars($editRestaurant['name'] ?? '') ?>"
+                    required
+                >
+
+                <textarea
+                    name="restaurant_description"
+                    placeholder="Përshkrimi"
+                    required
+                ><?= htmlspecialchars($editRestaurant['description'] ?? '') ?></textarea>
+
+                <input
+                    type="text"
+                    name="restaurant_image"
+                    placeholder="Foto p.sh. manuka.jpg"
+                    value="<?= htmlspecialchars($editRestaurant['image'] ?? '') ?>"
+                    required
+                >
+
+                <button type="submit" name="update_restaurant" class="create-btn">Update Restaurant</button>
+            </form>
+        <?php else: ?>
+            <h2>Shto Restaurant</h2>
+
+            <form method="POST">
+                <input
+                    type="text"
+                    name="restaurant_name"
+                    placeholder="Emri i restaurant"
+                    required
+                >
+
+                <textarea
+                    name="restaurant_description"
+                    placeholder="Përshkrimi i restaurant"
+                    required
+                ></textarea>
+
+                <input
+                    type="text"
+                    name="restaurant_image"
+                    placeholder="Foto p.sh. manuka.jpg"
+                    required
+                >
+
+                <button type="submit" name="create_restaurant" class="create-btn">Create Restaurant</button>
+            </form>
+        <?php endif; ?>
+    </div>
+
+    <div class="panel">
+        <h2>Restaurants</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Foto</th>
+                <th>Emri</th>
+                <th>Përshkrimi</th>
+                <th>Krijuar</th>
+                <th>Actions</th>
+            </tr>
+
+            <?php foreach ($restaurants as $r): ?>
+            <tr>
+                <td><?= (int)($r['id'] ?? 0) ?></td>
+                <td>
+                    <img
+                        src="images/<?= htmlspecialchars($r['image'] ?? 'default.jpg') ?>"
+                        alt="<?= htmlspecialchars($r['name'] ?? 'Restaurant') ?>"
+                        style="width:80px; height:60px; object-fit:cover; border-radius:8px;"
+                    >
+                </td>
+                <td><?= htmlspecialchars($r['name'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($r['description'] ?? '-') ?></td>
+                <td><?= htmlspecialchars($r['created_at'] ?? '-') ?></td>
+                <td>
+                    <a class="edit-btn" href="?edit_restaurant=<?= (int)($r['id'] ?? 0) ?>">Edit</a>
+                    <a class="delete-btn" href="?delete_restaurant=<?= (int)($r['id'] ?? 0) ?>" onclick="return confirm('A je i sigurt?')">Delete</a>
                 </td>
             </tr>
             <?php endforeach; ?>

@@ -8,13 +8,9 @@
 body {
   min-height: 100vh;
   color: #fff;
-
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.75),
-      rgba(0, 0, 0, 0.75)
-    ),
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
     url("images/homepageimg.jpg") center/cover no-repeat fixed;
-
   padding: 20px;
 }
 
@@ -54,24 +50,34 @@ h2 {
 }
 
 .dashboard {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
-  align-items: flex-start;
+  align-items: start;
 }
 
 .panel {
-  flex: 1;
+  width: 100%;
+  min-width: 0;
   background: rgba(20, 20, 20, 0.75);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(201, 168, 106, 0.2);
   border-radius: 12px;
   padding: 15px;
   transition: 0.3s;
+  overflow-x: auto;
 }
 
 .panel:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(201, 168, 106, 0.2);
+}
+
+.panel h2 {
+  border-bottom: 1px solid rgba(201, 168, 106, 0.2);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 table {
@@ -84,6 +90,7 @@ th {
   background: #111;
   color: #c9a86a;
   padding: 10px;
+  text-align: center;
 }
 
 td {
@@ -91,6 +98,11 @@ td {
   text-align: center;
   border-bottom: 1px solid #333;
   color: #fff;
+  vertical-align: middle;
+}
+
+tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .edit-btn {
@@ -101,6 +113,13 @@ td {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  margin: 2px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.edit-btn:hover {
+  background: #fff;
 }
 
 .delete-btn {
@@ -110,6 +129,58 @@ td {
   padding: 5px 8px;
   border-radius: 6px;
   cursor: pointer;
+  margin: 2px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.delete-btn:hover {
+  background: #ff1f1f;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #0e0e0e;
+  color: #fff;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border: 1px solid #c9a86a;
+}
+
+form button {
+  width: 100%;
+  padding: 10px;
+  background: #c9a86a;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+form button:hover {
+  background: #fff;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
 }
 
 .modal {
@@ -119,6 +190,7 @@ td {
   background: rgba(0,0,0,0.8);
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 
 .modal-content {
@@ -126,6 +198,7 @@ td {
   padding: 25px;
   border-radius: 12px;
   width: 320px;
+  max-width: 90%;
 }
 
 .modal-content h3 {
@@ -164,6 +237,6 @@ td {
 
 @media (max-width: 900px) {
   .dashboard {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 }
