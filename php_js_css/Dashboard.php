@@ -26,9 +26,6 @@ $userModel = new User($conn);
 $error = '';
 $success = '';
 
-/* =========================
-   USERS CRUD
-========================= */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $action = $_POST['action'] ?? '';
 
@@ -67,9 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    /* =========================
-       RESTAURANTS CREATE
-    ========================= */
     if (isset($_POST['create_restaurant'])) {
         $restaurantName = trim($_POST['restaurant_name'] ?? '');
         $restaurantDescription = trim($_POST['restaurant_description'] ?? '');
@@ -96,9 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    /* =========================
-       RESTAURANTS UPDATE
-    ========================= */
     if (isset($_POST['update_restaurant'])) {
         $restaurantId = (int)($_POST['restaurant_id'] ?? 0);
         $restaurantName = trim($_POST['restaurant_name'] ?? '');
@@ -131,9 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-/* =========================
-   USERS DELETE
-========================= */
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     if ($userModel->deleteUser($id)) {
@@ -143,9 +131,6 @@ if (isset($_GET['delete'])) {
     }
 }
 
-/* =========================
-   CONTACT DELETE
-========================= */
 if (isset($_GET['delete_msg'])) {
     $id = (int)$_GET['delete_msg'];
     $stmt = $conn->prepare("DELETE FROM contacts WHERE id = :id");
@@ -157,9 +142,6 @@ if (isset($_GET['delete_msg'])) {
     }
 }
 
-/* =========================
-   RESTAURANTS DELETE
-========================= */
 if (isset($_GET['delete_restaurant'])) {
     $id = (int)$_GET['delete_restaurant'];
     $stmt = $conn->prepare("DELETE FROM restaurants WHERE id = :id");
@@ -172,9 +154,6 @@ if (isset($_GET['delete_restaurant'])) {
     }
 }
 
-/* =========================
-   RESTAURANTS EDIT FETCH
-========================= */
 $editRestaurant = null;
 
 if (isset($_GET['edit_restaurant'])) {
@@ -188,9 +167,6 @@ if (isset($_GET['edit_restaurant'])) {
     }
 }
 
-/* =========================
-   SUCCESS MESSAGES
-========================= */
 if (isset($_GET['restaurant_created'])) {
     $success = "Restaurant u shtua me sukses!";
 }
@@ -203,9 +179,6 @@ if (isset($_GET['restaurant_deleted'])) {
     $success = "Restaurant u fshi me sukses!";
 }
 
-/* =========================
-   READ DATA
-========================= */
 $users = $userModel->getAllUsers();
 
 $stmt = $conn->prepare("SELECT * FROM contacts ORDER BY created_at DESC");
