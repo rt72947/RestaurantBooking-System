@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ':message' => $message
             ]);
 
-            $success = "Rezervimi u ruajt me sukses në databazë!";
+            $success = "Rezervimi u ruajt me sukses, ju mirëpresim!";
 
             $fullName = "";
             $phone = "";
@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $guests = "";
             $message = "";
         } catch (PDOException $e) {
-            $errors[] = "Gabim gjatë ruajtjes në databazë: " . $e->getMessage();
+            $errors[] = "Gabim gjatë ruajtjes: " . $e->getMessage();
         }
     }
 }
