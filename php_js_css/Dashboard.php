@@ -211,7 +211,7 @@ $restaurants = $stmtRestaurants->fetchAll(PDO::FETCH_ASSOC);
 <div class="dashboard">
 
     <div class="panel">
-        <h2>Users Dashboard</h2>
+        <h2>Users</h2>
 
         <button class="create-btn" onclick="openModal('createModal')">
             Create New User
@@ -422,7 +422,7 @@ $restaurants = $stmtRestaurants->fetchAll(PDO::FETCH_ASSOC);
 
 <script>
 function openModal(id) {
-    document.getElementById(id).style.display = 'block';
+    document.getElementById(id).style.display = 'flex';
 }
 
 function closeModal(id) {
