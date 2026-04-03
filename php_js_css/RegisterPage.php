@@ -86,9 +86,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         <h2>SIGN UP</h2>
         <p class="register-text">Regjistrohu për të vazhduar</p>
 
-        <form method="POST">
+        <form method="POST" id="registerForm">
 
-            <?php if(!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+            <?php if(!empty($error)) echo "<p style='color:red; font-style:italic;'>$error</p>"; ?>
+            <p id="jsError" style="color:red;"></p>
 
             <?php 
             if(isset($_SESSION['success'])) {
@@ -99,22 +100,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             <div class="input-box">
                 <img src="images/user.png" class="icons" alt="Username">
-                <input type="text" name="username" placeholder="First Name" value="<?= htmlspecialchars($username) ?>" required>
+                <input type="text" name="username" placeholder="First Name" value="<?= htmlspecialchars($username) ?>" >
             </div>
 
             <div class="input-box">
                 <img src="images/emaill.png" class="icons" alt="Email">
-                <input type="email" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>" required>
+                <input type="email" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>" >
             </div>
 
             <div class="input-box">
                 <img src="images/pass.png" class="icons" alt="Password">
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" >
             </div>
 
             <div class="input-box">
                 <img src="images/pass.png" class="icons" alt="Confirm Password">
-                <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" >
             </div>
 
             <button type="submit" name="submit" class="button">Sign Up</button>
@@ -123,6 +124,58 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </form>
     </div>
 </div>
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e){
 
+    let username = document.querySelector("input[name='username']").value.trim();
+    let email = document.querySelector("input[name='email']").value.trim();
+    let password = document.querySelector("input[name='password']").value;
+    let confirmPassword = document.querySelector("input[name='confirmPassword']").value;
+
+    let errorBox = document.getElementById("jsError");
+    errorBox.innerText = "";
+
+    if(username === ""){
+        e.preventDefault();
+        errorBox.innerText = "Username është i detyrueshëm!";
+        return;
+    }
+
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if(email === ""){
+        e.preventDefault();
+        errorBox.innerText = "Email është i detyrueshëm!";
+        return;
+    }
+    if(!email.match(emailPattern)){
+        e.preventDefault();
+        errorBox.innerText = "Email nuk është valid!";
+        return;
+    }
+
+    let passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
+    if(password === ""){
+        e.preventDefault();
+        errorBox.innerText = "Password është i detyrueshëm!";
+        return;
+    }
+    if(!password.match(passwordPattern)){
+        e.preventDefault();
+        errorBox.innerText = "Password duhet të ketë minimum 8 karaktere, 1 shkronjë të madhe dhe 1 numër!";
+        return;
+    }
+
+    if(confirmPassword === ""){
+        e.preventDefault();
+        errorBox.innerText = "Ju lutem konfirmoni password-in!";
+        return;
+    }
+    if(password !== confirmPassword){
+        e.preventDefault();
+        errorBox.innerText = "Password-at nuk përputhen!";
+        return;
+    }
+});
+</script>
 </body>
 </html>

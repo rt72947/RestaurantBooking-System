@@ -91,9 +91,10 @@ class Contact {
         <p class="contact-text">Na kontaktoni për çdo pyetje apo kërkesë.</p>
         <form id='form' action="" method="post">
              <?php 
-                if($success) echo "<p style='color:green;'>$success</p>"; 
-                if($error) echo "<p style='color:red;'>$error</p>"; 
+                if($success) echo "<p style='color:green; font-style:italic;'>$success</p>"; 
+                if($error) echo "<p style='color:red; font-style:italic;'>$error</p>"; 
             ?>
+            <p id="jsError" style="color:red;"></p>
 
             <div class="input-box">
                 <input id='name' type="text" name="name" placeholder="First Name" value="<?= htmlspecialchars($name) ?>">
@@ -111,6 +112,42 @@ class Contact {
         </form>
     </div>
 </div>
+<script>
+    document.getElementById("form").addEventListener("submit", function(e){
 
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let message = document.getElementById("message").value.trim();
+
+        let errorBox = document.getElementById("jsError");
+        errorBox.innerText = "";
+
+        if(name === ""){
+            e.preventDefault();
+            errorBox.innerText = "Emri është i detyrueshëm!";
+            return;
+        }
+
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+        if(email === ""){
+            e.preventDefault();
+            errorBox.innerText = "Email është i detyrueshëm!";
+            return;
+        }
+
+        if(!email.match(emailPattern)){
+            e.preventDefault();
+            errorBox.innerText = "Email nuk është valid!";
+            return;
+        }   
+
+        if(message === ""){
+            e.preventDefault();
+            errorBox.innerText = "Mesazhi nuk mund të jetë bosh!";
+            return;
+        }
+    });
+</script>
 </body>
 </html>
