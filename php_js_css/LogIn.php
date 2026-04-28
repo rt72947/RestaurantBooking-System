@@ -6,8 +6,6 @@ $db = new Database();
 $conn = $db->getConnection();
 
 $errors = [];
-$success = "";
-
 $email = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -15,203 +13,130 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = trim($_POST["password"] ?? "");
 
     if ($email === "") {
-        $errors['email'] = "Email është i detyrueshëm.";
+        $errors["email"] = "Email është i detyrueshëm.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "Email nuk është valid.";
+        $errors["email"] = "Email nuk është valid.";
     }
 
     if ($password === "") {
-        $errors['password'] = "Password është i detyrueshëm.";
+        $errors["password"] = "Password është i detyrueshëm.";
     } elseif (strlen($password) < 6) {
-        $errors['password'] = "Password duhet të ketë minimum 6 karaktere.";
+        $errors["password"] = "Password duhet të ketë minimum 6 karaktere.";
     }
 
     if (empty($errors)) {
         $sql = "SELECT id, name, email, password, role FROM users WHERE email = :email LIMIT 1";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([':email' => $email]);
+        $stmt->execute([
+            ":email" => $email
+        ]);
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['name'];
-                $_SESSION['user_email'] = $user['email'];
-                $_SESSION['user_role'] = $user['role'];
+        if ($user && password_verify($password, $user["password"])) {
+            $_SESSION["user_id"] = $user["id"];
+            $_SESSION["user_name"] = $user["name"];
+            $_SESSION["user_email"] = $user["email"];
+            $_SESSION["user_role"] = $user["role"];
 
-                header("Location: Homepage.php");
-                exit;
-            } else {
-                $errors['general'] = "Email ose password gabim.";
-            }
+            header("Location: Homepage.php");
+            exit();
         } else {
-            $errors['general'] = "Email ose password gabim.";
+            $errors["general"] = "Email ose password gabim.";
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="sq">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Cinzel:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="LogIn.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="LogIn.css">
 
     <style>
-      .error {
-        color: #ff6b6b;
-        font-size: 13px;
-        margin-top: 6px;
-        padding-left: 4px;
-      }
+        .error-message {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: 6px;
+            padding-left: 5px;
+        }
 
-      .general-error {
-        color: #ff6b6b;
-        font-size: 14px;
-        margin-bottom: 14px;
-        text-align: center;
-      }
+        .general-error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
 
-      .input-control.success input {
-        border: 1px solid #c9a86a;
-      }
-
-      .input-control.error input {
-        border: 1px solid #ff6b6b;
-      }
+        .input-control.error input {
+            border: 1px solid #ff6b6b;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <main class="auth">
-      <div class="auth-card">
-        <h2>Log In</h2>
-        <p class="auth-sub">Kyçu për të vazhduar</p>
+        <div class="auth-card">
+            <h2>Log In</h2>
+            <p class="auth-sub">Kyçu për të vazhduar</p>
 
-        <form action="" method="POST" id="form" novalidate>
-          <?php if (!empty($errors['general'])): ?>
-            <div class="general-error"><?php echo htmlspecialchars($errors['general']); ?></div>
-          <?php endif; ?>
+            <form action="" method="POST" novalidate>
 
-          <div class="input-control <?php echo !empty($errors['email']) ? 'error' : ''; ?>">
-            <div class="input-box">
-              <img src="images/user.png" class="icons" alt="Email" />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value="<?php echo htmlspecialchars($email); ?>"
-              />
-            </div>
-            <div class="error">
-              <?php echo !empty($errors['email']) ? htmlspecialchars($errors['email']) : ''; ?>
-            </div>
-          </div>
+                <?php if (!empty($errors["general"])): ?>
+                    <div class="general-error">
+                        <?php echo htmlspecialchars($errors["general"]); ?>
+                    </div>
+                <?php endif; ?>
 
-          <div class="input-control <?php echo !empty($errors['password']) ? 'error' : ''; ?>">
-            <div class="input-box">
-              <img src="images/pass.png" class="icons" alt="Password" />
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-              />
-            </div>
-            <div class="error">
-              <?php echo !empty($errors['password']) ? htmlspecialchars($errors['password']) : ''; ?>
-            </div>
-          </div>
+                <div class="input-control <?php echo !empty($errors["email"]) ? 'error' : ''; ?>">
+                    <div class="input-box">
+                        <img src="images/user.png" class="icons" alt="Email">
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value="<?php echo htmlspecialchars($email); ?>"
+                        >
+                    </div>
 
-          <button type="submit" class="btn-gold">Log In</button>
+                    <?php if (!empty($errors["email"])): ?>
+                        <div class="error-message">
+                            <?php echo htmlspecialchars($errors["email"]); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
 
-          <p class="auth-foot">
-            Nuk ke llogari?
-            <a href="RegisterPage.php">Regjistrohu</a>
-          </p>
-        </form>
-      </div>
+                <div class="input-control <?php echo !empty($errors["password"]) ? 'error' : ''; ?>">
+                    <div class="input-box">
+                        <img src="images/pass.png" class="icons" alt="Password">
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                        >
+                    </div>
+
+                    <?php if (!empty($errors["password"])): ?>
+                        <div class="error-message">
+                            <?php echo htmlspecialchars($errors["password"]); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <button type="submit" class="btn-gold">Log In</button>
+
+                <p class="auth-foot">
+                    Nuk ke llogari?
+                    <a href="RegisterPage.php">Regjistrohu</a>
+                </p>
+
+            </form>
+        </div>
     </main>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("form");
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
-
-        form.addEventListener("submit", function (e) {
-          let valid = true;
-
-          clearState(email);
-          clearState(password);
-
-          const emailValue = email.value.trim();
-          const passwordValue = password.value.trim();
-
-          if (emailValue === "") {
-            setError(email, "Email është i detyrueshëm");
-            valid = false;
-          } else if (!isValidEmail(emailValue)) {
-            setError(email, "Email nuk është valid");
-            valid = false;
-          } else {
-            setSuccess(email);
-          }
-
-          if (passwordValue === "") {
-            setError(password, "Password është i detyrueshëm");
-            valid = false;
-          } else if (passwordValue.length < 6) {
-            setError(password, "Password duhet të ketë minimum 6 karaktere");
-            valid = false;
-          } else {
-            setSuccess(password);
-          }
-
-          if (!valid) {
-            e.preventDefault();
-          }
-        });
-
-        function setError(input, message) {
-          const control = input.closest(".input-control");
-          const error = control.querySelector(".error");
-
-          error.innerText = message;
-          control.classList.add("error");
-          control.classList.remove("success");
-        }
-
-        function setSuccess(input) {
-          const control = input.closest(".input-control");
-          const error = control.querySelector(".error");
-
-          if (error) error.innerText = "";
-          control.classList.add("success");
-          control.classList.remove("error");
-        }
-
-        function clearState(input) {
-          const control = input.closest(".input-control");
-          const error = control.querySelector(".error");
-
-          if (error) error.innerText = "";
-          control.classList.remove("error");
-          control.classList.remove("success");
-        }
-
-        function isValidEmail(email) {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-      });
-    </script>
-  </body>
+</body>
 </html>
