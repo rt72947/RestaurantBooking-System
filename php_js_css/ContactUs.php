@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'Database.php';
+require_once 'Database.php';
 include_once 'users.php';
 
 if(!isset($_SESSION['user_id'])){

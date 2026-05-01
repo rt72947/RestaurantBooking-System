@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
@@ -17,7 +16,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("Expires: 0");
 
-include_once 'Database.php';
+require_once 'Database.php';
 include_once 'users.php';
 
 if (!isset($_SESSION['user_id'])) {

@@ -1,6 +1,4 @@
 <?php
-
-
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
@@ -19,7 +17,7 @@ $conn = $db->getConnection();
 $errors = [];
 $success = "";
 
-$restaurantId = 2; // CANTINA DE JUAN
+$restaurantId = 2;
 
 $fullName = "";
 $phone = "";

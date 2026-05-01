@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION["user_id"])) {
     header("Location: LogIn.php");
     exit();
@@ -15,7 +14,7 @@ $conn = $db->getConnection();
 $errors = [];
 $success = "";
 
-$restaurantId = 1; // MANUKA
+$restaurantId = 1;
 
 $fullName = $phone = $email = $date = $time = $guests = $message = "";
 
