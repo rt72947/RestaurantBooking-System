@@ -219,6 +219,10 @@ $restaurants = $stmtRestaurants->fetchAll(PDO::FETCH_ASSOC);
     <p class="success"><?= htmlspecialchars($success) ?></p>
 <?php endif; ?>
 
+<header class="topbar">
+      <a class="back" href="Homepage.php">Home Page</a>
+</header>
+
 <div class="dashboard">
 
     <div class="panel">

@@ -1,6 +1,3 @@
-/* =========================
-   RESET / BASE
-========================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,9 +14,6 @@ body {
   color: #fff;
 }
 
-/* =========================
-   TOPBAR
-========================= */
 .topbar {
   position: fixed;
   top: 0;
@@ -36,7 +30,7 @@ body {
   color: #fff;
   text-decoration: none;
   letter-spacing: 1px;
-  font-weight: 500;
+  font-weight: bold;
   transition: opacity 0.25s ease;
 }
 
@@ -44,9 +38,6 @@ body {
   opacity: 0.8;
 }
 
-/* =========================
-   HERO
-========================= */
 .hero {
   position: relative;
   display: flex;
@@ -97,9 +88,6 @@ body {
   text-transform: uppercase;
 }
 
-/* =========================
-   CTA
-========================= */
 .cta {
   display: inline-block;
   padding: 12px 22px;
@@ -117,9 +105,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* =========================
-   SHARED SECTION
-========================= */
 .menu-section,
 .contact-section {
   background-color: #0e0e0e;
@@ -160,9 +145,6 @@ body {
   line-height: 1.7;
 }
 
-/* =========================
-   MENU SLIDER
-========================= */
 .menu-slider {
   position: relative;
   max-width: 1100px;
@@ -226,9 +208,6 @@ body {
   color: #f1d29a;
 }
 
-/* =========================
-   SLIDER BUTTONS
-========================= */
 .slider-btn {
   position: absolute;
   top: 50%;
@@ -260,9 +239,6 @@ body {
   right: 12px;
 }
 
-/* =========================
-   CONTACT
-========================= */
 .contact-container {
   display: flex;
   justify-content: center;
@@ -307,9 +283,6 @@ body {
   color: #fff;
 }
 
-/* =========================
-   RESERVATION
-========================= */
 .reservation-wrap {
   display: flex;
   justify-content: center;
@@ -443,9 +416,6 @@ body {
   font-size: 14px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 900px) {
   .menu-card {
     flex: 0 0 calc((100% - 30px) / 2);

@@ -20,7 +20,7 @@ $conn = $db->getConnection();
 $errors = [];
 $success = "";
 
-$restaurantId = 6; // AD MELIORA
+$restaurantId = 6;
 
 $fullName = "";
 $phone = "";
