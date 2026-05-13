@@ -64,10 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id = $_POST['id'] ?? '';
         $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
-        $password = !empty($_POST['password']) ? $_POST['password'] : null;
         $role = $_POST['role'] ?? 'user';
 
-        if ($userModel->updateUser($id, $name, $email, $password, $role)) {
+        if ($userModel->updateUser($id, $name, $email, $role)) {
             $success = "User u përditësua me sukses!";
         } else {
             $error = "Gabim gjatë përditësimit!";
@@ -422,7 +421,6 @@ $restaurants = $stmtRestaurants->fetchAll(PDO::FETCH_ASSOC);
 
             <input type="text" name="name" id="editName" required>
             <input type="email" name="email" id="editEmail" required>
-            <input type="password" name="password" placeholder="New Password">
 
             <select name="role" id="editRole">
                 <option value="user">User</option>

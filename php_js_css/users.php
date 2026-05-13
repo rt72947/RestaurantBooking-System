@@ -38,4 +38,15 @@ class User {
         $stmt = $this->conn->prepare("DELETE FROM {$this->table_name} WHERE id=:id");
         return $stmt->execute([':id'=>$id]);
     }
+
+     public function updateUser(int $id, string $name, string $email, string $role): bool {
+        $stmt = $this->conn->prepare("UPDATE {$this->table_name} SET name = :name,email = :email,role = :role WHERE id = :id");
+
+        return $stmt->execute([
+            ':id' => $id,
+            ':name' => $name,
+            ':email' => $email,
+            ':role' => $role
+        ]);
+    }
 }
